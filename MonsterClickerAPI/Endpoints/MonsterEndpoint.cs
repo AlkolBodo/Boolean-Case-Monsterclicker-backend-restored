@@ -53,12 +53,13 @@ namespace MonsterClickerAPI.Endpoints
 
                 MonsterDTO dto = new MonsterDTO()
                 {
+
+
                     MonsterName = monster.MonsterName,
                     MonsterSpriteUrl = monster.MonsterSpriteUrl,
                     GoldDrop = monsterstats?.GoldDrop ?? 0,
                     Health = monsterstats?.Health ?? 0,
                     Items = monsteritems.ToArray()
-
                 };
                 monsterDTOs.Add(dto);
             }
