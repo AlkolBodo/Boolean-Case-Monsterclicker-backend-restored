@@ -30,6 +30,7 @@ namespace MonsterClickerAPI.Controllers
 
         [HttpPost]
         [Route("register")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Register(RegistrationRequest request)
         {
             if (!ModelState.IsValid)
