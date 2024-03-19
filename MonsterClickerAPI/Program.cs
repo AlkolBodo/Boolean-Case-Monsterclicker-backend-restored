@@ -60,6 +60,7 @@ builder.Services.AddScoped<IRepository<Monster>, Repository<Monster>>();
 builder.Services.AddScoped<IRepository<Item>, Repository<Item>>();
 builder.Services.AddScoped<IRepository<MonsterItemTable>, Repository<MonsterItemTable>>();
 builder.Services.AddScoped<IRepository<MonsterStats>, Repository<MonsterStats>>();
+builder.Services.AddScoped<IRepository<User>, Repository<User>>();
 
 builder.Services.AddControllers().AddJsonOptions(opt =>
 {
@@ -117,6 +118,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.ConfigureMonsterEndpoint();
+app.ConfigureUserEndpoint();
 
 app.UseAuthorization();
 
