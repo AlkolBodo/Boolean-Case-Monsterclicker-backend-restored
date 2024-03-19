@@ -47,16 +47,16 @@ namespace MonsterClickerAPI.Endpoints
                     }
                 }
 
-                //MonsterDTO dto = new MonsterDTO()
-                //{
-                //    MonsterName = monster.MonsterName,
-                //    MonsterSpriteUrl = monster.MonsterSpriteUrl,
-                //    GoldDrop = ,
-                //    Health = ,
-                //    Items = monsteritems.ToArray()
+                MonsterDTO dto = new MonsterDTO()
+                {
+                   MonsterName = monster.MonsterName,
+                   MonsterSpriteUrl = monster.MonsterSpriteUrl,
+                   GoldDrop = ,
+                   Health = ,
+                   Items = monsteritems.ToArray()
 
-                //};
-                //monsterDTOs.Add(dto);
+                };
+                monsterDTOs.Add(dto);
             }
 
 
