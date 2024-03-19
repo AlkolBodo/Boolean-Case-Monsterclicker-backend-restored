@@ -5,7 +5,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MonsterClickerAPI;
 using MonsterClickerAPI.Data;
+using MonsterClickerAPI.Endpoints;
 using MonsterClickerAPI.Enumfolder;
+using MonsterClickerAPI.IRepo;
+using MonsterClickerAPI.Models;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -52,6 +55,12 @@ builder.Services.AddDbContext<DataContext>(
     opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 builder.Services.AddScoped<ServiceToken, ServiceToken>();
+
+builder.Services.AddScoped<IRepository<Monster>, Repository<Monster>>();
+builder.Services.AddScoped<IRepository<Item>, Repository<Item>>();
+builder.Services.AddScoped<IRepository<MonsterItemTable>, Repository<MonsterItemTable>>();
+builder.Services.AddScoped<IRepository<MonsterStats>, Repository<MonsterStats>>();
+
 builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -107,6 +116,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.ConfigureMonsterEndpoint();
 
 app.UseAuthorization();
 
