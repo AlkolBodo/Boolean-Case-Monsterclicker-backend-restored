@@ -30,7 +30,10 @@ namespace MonsterClickerAPI.Endpoints
 
             foreach (var monster in result)
             {
+                var monsterstats = statsresult.FirstOrDefault(x  => x.Id == monster.Id);
+
                 List<ItemDTO> monsteritems = new List<ItemDTO>();
+
                 foreach (var monstertable in tablesresult)
                 {
                     if ( monster.Id == monstertable.MonsterId)
@@ -51,8 +54,8 @@ namespace MonsterClickerAPI.Endpoints
                 {
                     MonsterName = monster.MonsterName,
                     MonsterSpriteUrl = monster.MonsterSpriteUrl,
-                    GoldDrop = ,
-                    Health = ,
+                    GoldDrop = monsterstats?.GoldDrop ?? 0,
+                    Health = monsterstats?.Health ?? 0,
                     Items = monsteritems.ToArray()
 
                 };
