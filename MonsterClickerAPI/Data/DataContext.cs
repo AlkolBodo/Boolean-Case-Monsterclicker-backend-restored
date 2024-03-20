@@ -17,9 +17,9 @@ namespace MonsterClickerAPI.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //base.OnModelCreating(builder);
+            base.OnModelCreating(builder);
 
-            Seeder seed = new Seeder();
+            //Seeder seed = new Seeder();
 
 
             builder.Entity<UserStats>().Navigation(x => x.User).AutoInclude();
