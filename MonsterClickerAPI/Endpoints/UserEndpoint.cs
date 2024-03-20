@@ -15,7 +15,8 @@ namespace MonsterClickerAPI.Endpoints
             users.MapGet("/all", GetUsers);
             users.MapGet("/{id}", GetUserById);
             users.MapPost("/", MakeUser);
-            //Delete user eventually if there is time
+            //TODO Delete user eventually if there is time
+            //TODO New user adds entries to stat tables
 
             users.MapGet("/all/PlayerStats", GetPlayerStats);
             users.MapGet("/{id}/PlayerStats", GetPlayerStatsById);

@@ -30,7 +30,7 @@ namespace MonsterClickerAPI.Data
 
             builder.Entity<PlayerStats>().Navigation(x => x.User).AutoInclude();
 
-            builder.Entity<PlayerInventory>().Navigation(x => x.PlayerStats).AutoInclude();
+            builder.Entity<PlayerInventory>().Navigation(x => x.User).AutoInclude();
             builder.Entity<PlayerInventory>().Navigation(x => x.Item).AutoInclude();
 
             builder.Entity<MonsterItemTable>().Navigation(x => x.Monster).AutoInclude();
