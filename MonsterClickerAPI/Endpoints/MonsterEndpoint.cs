@@ -56,7 +56,7 @@ namespace MonsterClickerAPI.Endpoints
                 MonsterDTO dto = new MonsterDTO()
                 {
 
-
+                    Id = monster.Id,
                     MonsterName = monster.MonsterName,
                     MonsterSpriteUrl = monster.MonsterSpriteUrl,
                     GoldDrop = monsterstats?.GoldDrop ?? 0,
@@ -100,6 +100,7 @@ namespace MonsterClickerAPI.Endpoints
 
             MonsterDTO dto = new MonsterDTO()
             {
+                Id = id,
                 MonsterName = result.MonsterName,
                 MonsterSpriteUrl = result.MonsterSpriteUrl,
                 GoldDrop = statsresult?.GoldDrop ?? 0,
@@ -149,7 +150,7 @@ namespace MonsterClickerAPI.Endpoints
                     MonsterDTO dto = new MonsterDTO()
                     {
 
-
+                        Id = monster.Id,
                         MonsterName = monster.MonsterName,
                         MonsterSpriteUrl = monster.MonsterSpriteUrl,
                         GoldDrop = monsterstats?.GoldDrop ?? 0,
@@ -202,6 +203,8 @@ namespace MonsterClickerAPI.Endpoints
 
                 MonsterDTO dto = new MonsterDTO()
                 {
+
+                    Id = monster.Id,
                     MonsterName = monster.MonsterName,
                     MonsterSpriteUrl = monster.MonsterSpriteUrl,
                     GoldDrop = monsterstats?.GoldDrop ?? 0,
