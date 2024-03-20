@@ -8,8 +8,8 @@ namespace MonsterClickerAPI.Models
     {
         [Key]
         [Column("id")] public int Id { get; set; }
-        [Column("player_id")][ForeignKey("PlayerStats")] public int PlayerId { get; set; }
-        public PlayerStats PlayerStats { get; set; }
+        [Column("player_id")][ForeignKey("User")] public int UserId { get; set; }
+        public User User { get; set; }
 
         [Column("item_id")][ForeignKey("Item")] public int ItemId { get; set; }
         public Item Item { get; set; }
