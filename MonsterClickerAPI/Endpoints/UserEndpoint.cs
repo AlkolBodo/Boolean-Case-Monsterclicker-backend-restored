@@ -57,7 +57,11 @@ namespace MonsterClickerAPI.Endpoints
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> MakeUser(IRepository<User> userRepository, UserDTO newUser)
+        public static async Task<IResult> MakeUser(
+            IRepository<User> userRepository,
+            IRepository<UserStats> userStatsRepository,
+            IRepository<PlayerStats> playerStatsRepository,
+            UserDTO newUser)
         {
             var result = await userRepository.Create(new User()
             {
@@ -67,8 +71,13 @@ namespace MonsterClickerAPI.Endpoints
             });
 
             if (result == null)
-                return TypedResults.NotFound();
+                return TypedResults.BadRequest();
 
+            await userStatsRepository.Create(new UserStats()
+                { Clicks = 0, MonstersKilled = 0, UserId = result.Id, User = result });
+
+            await playerStatsRepository.Create(new PlayerStats()
+                { ClickDamage = 0, CritChance = 0, UserId = result.Id, User = result });
 
             Payload<UserDTO> payload = new Payload<UserDTO>();
             payload.data = new UserDTO()
@@ -131,6 +140,8 @@ namespace MonsterClickerAPI.Endpoints
         {
             var results = await playerStatsRepository.GetById(id);
 
+            if (results == null) return TypedResults.NotFound("Invalid user Id");
+
             Payload<PlayerStatsDTO> payload = new Payload<PlayerStatsDTO>();
             payload.data = new PlayerStatsDTO()
             {
@@ -145,6 +156,8 @@ namespace MonsterClickerAPI.Endpoints
         public static async Task<IResult> EditPlayerStatsById(IRepository<PlayerStats> playerStatsRepository, PlayerStatsDTO newStats, int id)
         {
             var stat = await playerStatsRepository.GetById(id);
+
+            if (stat == null) return TypedResults.NotFound("Invalid user id");
 
             stat.ClickDamage = newStats.ClickDamage;
             stat.CritChance = newStats.CritChance;
@@ -189,6 +202,8 @@ namespace MonsterClickerAPI.Endpoints
         {
             var results = await userStatsRepository.GetById(id);
 
+            if (results == null) return TypedResults.NotFound("Invalid user id");
+
             Payload<UserStatsDTO> payload = new Payload<UserStatsDTO>();
             payload.data = new UserStatsDTO()
             {
@@ -203,6 +218,8 @@ namespace MonsterClickerAPI.Endpoints
         public static async Task<IResult> EditUserStatsById(IRepository<UserStats> userStatsRepository, UserStatsDTO newStats, int id)
         {
             var stat = await userStatsRepository.GetById(id);
+
+            if (stat == null) return TypedResults.NotFound("Invalid user Id");
 
             stat.MonstersKilled = newStats.MonstersKilled;
             stat.Clicks = newStats.Clicks;
@@ -255,7 +272,8 @@ namespace MonsterClickerAPI.Endpoints
                 Amount = result.Amount,
                 ItemId = result.ItemId,
                 ItemName = item.ItemName,
-                ItemSpriteUrl = item.ItemSpriteUrl
+                ItemSpriteUrl = item.ItemSpriteUrl,
+                Value = item.Value
             };
             return TypedResults.Ok(payload);
 
@@ -274,7 +292,7 @@ namespace MonsterClickerAPI.Endpoints
             var playerInventory = allInventories.Where(x => x.UserId == id);
             var item = playerInventory.First(x => x.ItemId == itemId);
 
-            if (item == null) return TypedResults.NotFound("Item not in inventory, use POST to add it");
+            if (item == null || !playerInventory.Any() || allInventories == null) return TypedResults.NotFound("Item not in inventory, use POST to add it");
 
             item.Amount = newAmount;
 
@@ -287,7 +305,8 @@ namespace MonsterClickerAPI.Endpoints
                 Amount = result.Amount,
                 ItemId = result.ItemId,
                 ItemName = getItem.ItemName,
-                ItemSpriteUrl = getItem.ItemSpriteUrl
+                ItemSpriteUrl = getItem.ItemSpriteUrl,
+                Value = getItem.Value
             };
             return TypedResults.Ok(payload);
 
@@ -304,9 +323,12 @@ namespace MonsterClickerAPI.Endpoints
 
             var allInventories = await playerInventoryRepository.GetAll();
             var playerInventory = allInventories.Where(x => x.UserId == id);
-            var item = playerInventory.First(x => x.ItemId == itemId);
+            var item = playerInventory.FirstOrDefault(x => x.ItemId == itemId);
 
-            if (item == null) return TypedResults.NotFound("Item not in inventory, cannot delete!");
+            if (!playerInventory.Any())
+                return TypedResults.NotFound("Could not find player inventory, invalid user id");
+            if (item == default) return TypedResults.NotFound("Item not in inventory, cannot delete!");
+
 
             var result = await playerInventoryRepository.Delete(item);
 
@@ -317,7 +339,8 @@ namespace MonsterClickerAPI.Endpoints
                 Amount = result.Amount,
                 ItemId = result.ItemId,
                 ItemName = getItem.ItemName,
-                ItemSpriteUrl = getItem.ItemSpriteUrl
+                ItemSpriteUrl = getItem.ItemSpriteUrl,
+                Value = getItem.Value
             };
             return TypedResults.Ok(payload);
 
@@ -334,6 +357,8 @@ namespace MonsterClickerAPI.Endpoints
             var playerInventory = inventories.Where(x => x.UserId == id);
             var items = await itemRepository.GetAll();
 
+            if (inventories == null || !playerInventory.Any() || items == null) return TypedResults.NotFound();
+
             List<PlayerInventoryDTO> fullInventory = new List<PlayerInventoryDTO>();
 
             foreach (var inventory in playerInventory)
@@ -347,6 +372,7 @@ namespace MonsterClickerAPI.Endpoints
                     temp.ItemSpriteUrl = validItem.ItemSpriteUrl;
                     temp.ItemId = validItem.Id;
                     temp.Amount = inventory.Amount;
+                    temp.Value = validItem.Value;
                     fullInventory.Add(temp);
                 }
             }
