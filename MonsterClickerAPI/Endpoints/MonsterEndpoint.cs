@@ -15,6 +15,7 @@ namespace MonsterClickerAPI.Endpoints
             var monsters = webApp.MapGroup("monsters");
             monsters.MapGet("/", GetMonsters);
             monsters.MapGet("/{id}", GetMonsterById);
+            //monsters.MapGet("/{stage}", GetMonstersByStage);
         }
 
         
@@ -58,7 +59,9 @@ namespace MonsterClickerAPI.Endpoints
                     MonsterName = monster.MonsterName,
                     MonsterSpriteUrl = monster.MonsterSpriteUrl,
                     GoldDrop = monsterstats?.GoldDrop ?? 0,
-                    Health = monsterstats?.Health ?? 0,
+                    BaseHealth = monsterstats?.BaseHealth ?? 0,
+                    ExtraHealth = monsterstats?.ExtraHealth ?? 0,
+                    Location = monster.Location,
                     Items = monsteritems.ToArray()
                 };
                 monsterDTOs.Add(dto);
@@ -99,7 +102,9 @@ namespace MonsterClickerAPI.Endpoints
                 MonsterName = result.MonsterName,
                 MonsterSpriteUrl = result.MonsterSpriteUrl,
                 GoldDrop = statsresult?.GoldDrop ?? 0,
-                Health = statsresult?.Health ?? 0,
+                BaseHealth = statsresult?.BaseHealth ?? 0,
+                ExtraHealth = statsresult?.ExtraHealth ?? 0,
+                Location = result.Location,
                 Items = items.ToArray()
             };
 
@@ -107,5 +112,14 @@ namespace MonsterClickerAPI.Endpoints
             payload.data = dto;
             return TypedResults.Ok(payload);
         }
+
+        /*public static async Task<IResult> GetMonstersByStage(IRepository<Monster> monsterrepo, IRepository<MonsterStats> statsrepo, IRepository<MonsterItemTable> tablerepo, int stage)
+        {
+            var monsterresult = monsterrepo.GetAll();
+            var statsresult = statsrepo.GetAll();
+            var tablesresult = tablerepo.GetAll();
+
+
+        }*/
     }
 }
