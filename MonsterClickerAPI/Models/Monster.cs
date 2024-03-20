@@ -9,7 +9,7 @@ namespace MonsterClickerAPI.Models
         [Key][Column("id")] public int Id { get; set; }
         [Column("monster_name")] public string MonsterName { get; set; }
         [Column("monster_sprite_ulr")] public string MonsterSpriteUrl { get; set; }
-        [Column("world_location")] public string Location { get; set; }
+        [Column("world_location")] public int Location { get; set; }
 
     }
 }

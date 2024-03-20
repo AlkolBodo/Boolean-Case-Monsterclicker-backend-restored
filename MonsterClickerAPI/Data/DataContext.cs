@@ -19,7 +19,11 @@ namespace MonsterClickerAPI.Data
         {
             base.OnModelCreating(builder);
 
-            //Seeder seed = new Seeder();
+            Seeder seeder = new Seeder();
+            builder.Entity<Monster>().HasData(seeder.Monsters);
+            builder.Entity<MonsterStats>().HasData(seeder.Stats);
+            builder.Entity<Item>().HasData(seeder.Items);
+            builder.Entity<MonsterItemTable>().HasData(seeder.MonsterItemTables);
 
 
             builder.Entity<UserStats>().Navigation(x => x.User).AutoInclude();
