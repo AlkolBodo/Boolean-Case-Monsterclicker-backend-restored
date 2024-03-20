@@ -114,14 +114,19 @@ namespace MonsterClickerAPI.Data
         //All items
         private List<string> _monsteritems = new List<string>()
         {
-
+            "Bone",
+            "Blob",
+            "Spirit energy",
+            "Scrap",
         };
 
 
         public Seeder()
         {
-            for (int x = 1; x < 20; x++)
+            int amount = _monsternames.Count();
+            for (int x = 1; x < amount; x++)
             {
+                //  missing location
                 Monster monster = new Monster();
                 monster.Id = x;
                 monster.MonsterSpriteUrl = urlstring + _spriteurls[x-1] + pngaddon;
@@ -129,13 +134,40 @@ namespace MonsterClickerAPI.Data
                 _monsters.Add(monster);
             }
 
-            for (int i = 0; i < 20; i++)
-            {
+            for (int i = 0; i < amount; i++)
+            {   
+                //  missing min/max health/gold
                 MonsterStats stats = new MonsterStats();
                 stats.Id = i;
                 stats.MonsterId = i;
                 stats.Health = generateHealth();
-                stats.GoldDrop = generateGoldDrop();    
+                stats.GoldDrop = generateGoldDrop();
+                _stats.Add(stats);
+            }
+
+            for (int i = 0; i < amount; i++)
+            {
+                Item item = new Item();
+                item.Id = i;
+                item.ItemName = _monsteritems[random.Next(_monsteritems.Count)];
+                _items.Add(item);
+            }
+
+            int idSetter = 0;
+            for (int i = 0; i < amount; i++)
+            {
+                for(int j = 0; j < random.Next(1, 3); j++)
+                {
+                    MonsterItemTable drop = new MonsterItemTable();
+                    drop.Id = idSetter++;
+                    drop.MonsterId = i;
+                    drop.ItemId = _items[random.Next(_items.Count)].Id;
+                    if(monsterItemTables.Contains(drop))
+                    drop.DropRate = random.Next(20, 80);
+                    drop.MinDrop = random.Next(1, 5);
+                    drop.MaxDrop = drop.MinDrop + random.Next(1, 5);
+                    monsterItemTables.Add(drop);
+                }
             }
         }
     }
