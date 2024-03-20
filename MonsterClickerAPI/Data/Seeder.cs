@@ -6,10 +6,10 @@ namespace MonsterClickerAPI.Data
 
     public class Seeder
     {
-        private List<Item> _items = new List<Item>();
         private List<Monster> _monsters = new List<Monster>();
-        private List<MonsterItemTable> monsterItemTables = new List<MonsterItemTable>();
         private List<MonsterStats> _stats = new List<MonsterStats>();
+        private List<Item> _items = new List<Item>();
+        private List<MonsterItemTable> monsterItemTables = new List<MonsterItemTable>();
 
 
         //All monsters
@@ -90,6 +90,8 @@ namespace MonsterClickerAPI.Data
             "Unique%20Squash"
         };
 
+    
+
         static Random random = new Random();
 
         //Basehealth for monsters
@@ -118,7 +120,23 @@ namespace MonsterClickerAPI.Data
 
         public Seeder()
         {
-            
+            for (int x = 1; x < 20; x++)
+            {
+                Monster monster = new Monster();
+                monster.Id = x;
+                monster.MonsterSpriteUrl = urlstring + _spriteurls[x-1] + pngaddon;
+                monster.MonsterName = _monsteritems[x-1];
+                _monsters.Add(monster);
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                MonsterStats stats = new MonsterStats();
+                stats.Id = i;
+                stats.MonsterId = i;
+                stats.Health = generateHealth();
+                stats.GoldDrop = generateGoldDrop();    
+            }
         }
     }
 
