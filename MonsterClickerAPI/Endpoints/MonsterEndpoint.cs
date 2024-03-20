@@ -15,7 +15,7 @@ namespace MonsterClickerAPI.Endpoints
             var monsters = webApp.MapGroup("monsters");
             monsters.MapGet("/", GetMonsters);
             monsters.MapGet("/{id}", GetMonsterById);
-            //monsters.MapGet("/{stage}", GetMonstersByStage);
+            monsters.MapGet("/{stage}", GetMonstersByStage);
         }
 
         
@@ -113,13 +113,57 @@ namespace MonsterClickerAPI.Endpoints
             return TypedResults.Ok(payload);
         }
 
-        /*public static async Task<IResult> GetMonstersByStage(IRepository<Monster> monsterrepo, IRepository<MonsterStats> statsrepo, IRepository<MonsterItemTable> tablerepo, int stage)
+        public static async Task<IResult> GetMonstersByStage(IRepository<Monster> monsterrepo, IRepository<MonsterStats> statsrepo, IRepository<MonsterItemTable> tablerepo, int stage)
         {
-            var monsterresult = monsterrepo.GetAll();
-            var statsresult = statsrepo.GetAll();
-            var tablesresult = tablerepo.GetAll();
+            var monsterresult = await monsterrepo.GetAll();
+            var statsresult = await statsrepo.GetAll();
+            var tablesresult = await tablerepo.GetAll();
+
+            List<MonsterDTO> stagemonsters = new List<MonsterDTO>();
+
+            foreach(var monster in monsterresult)
+            {
+                if(stage == monster.Location)
+                {
+                    var monsterstats = statsresult.FirstOrDefault(x => x.Id == monster.Id);
+
+                    List<ItemDTO> monsteritems = new List<ItemDTO>();
+
+                    foreach (var monstertable in tablesresult)
+                    {
+                        if (monster.Id == monstertable.MonsterId)
+                        {
+                            ItemDTO item = new ItemDTO()
+                            {
+                                ItemName = monstertable.Item.ItemName,
+                                ItemSpriteUrl = monstertable.Item.ItemSpriteUrl,
+                                DropRate = monstertable.DropRate,
+                                MinDrop = monstertable.MinDrop,
+                                MaxDrop = monstertable.MaxDrop,
+                            };
+                            monsteritems.Add(item);
+                        }
+                    }
+
+                    MonsterDTO dto = new MonsterDTO()
+                    {
 
 
-        }*/
+                        MonsterName = monster.MonsterName,
+                        MonsterSpriteUrl = monster.MonsterSpriteUrl,
+                        GoldDrop = monsterstats?.GoldDrop ?? 0,
+                        BaseHealth = monsterstats?.BaseHealth ?? 0,
+                        ExtraHealth = monsterstats?.ExtraHealth ?? 0,
+                        Location = monster.Location,
+                        Items = monsteritems.ToArray()
+                    };
+                    stagemonsters.Add(dto);
+                }
+            }
+
+            Payload<IEnumerable<MonsterDTO>> payload = new Payload<IEnumerable<MonsterDTO>>();
+            payload.data = stagemonsters;
+            return TypedResults.Ok(payload);
+        }
     }
 }
