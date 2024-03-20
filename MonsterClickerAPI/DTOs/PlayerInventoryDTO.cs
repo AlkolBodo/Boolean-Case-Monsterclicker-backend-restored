@@ -9,6 +9,7 @@ namespace MonsterClickerAPI.DTOs
         public string ItemName { get; set; }
         public string ItemSpriteUrl { get; set; }
         public int Amount { get; set; }
+        public float Value { get; set; }
 
     }
 }

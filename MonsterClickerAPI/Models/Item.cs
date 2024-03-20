@@ -9,5 +9,8 @@ namespace MonsterClickerAPI.Models
         [Key][Column("id")] public int Id { get; set; }
         [Column("item_name")] public string ItemName { get; set; }
         [Column("item_sprite_url")] public string ItemSpriteUrl { get; set; }
+        [Column("value")] public float Value { get; set; }
+
+
     }
 }

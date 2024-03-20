@@ -57,7 +57,11 @@ namespace MonsterClickerAPI.Endpoints
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> MakeUser(IRepository<User> userRepository, UserDTO newUser)
+        public static async Task<IResult> MakeUser(
+            IRepository<User> userRepository,
+            IRepository<UserStats> userStatsRepository,
+            IRepository<PlayerStats> playerStatsRepository,
+            UserDTO newUser)
         {
             var result = await userRepository.Create(new User()
             {
@@ -67,8 +71,13 @@ namespace MonsterClickerAPI.Endpoints
             });
 
             if (result == null)
-                return TypedResults.NotFound();
+                return TypedResults.BadRequest();
 
+            await userStatsRepository.Create(new UserStats()
+                { Clicks = 0, MonstersKilled = 0, UserId = result.Id, User = result });
+
+            await playerStatsRepository.Create(new PlayerStats()
+                { ClickDamage = 0, CritChance = 0, UserId = result.Id, User = result });
 
             Payload<UserDTO> payload = new Payload<UserDTO>();
             payload.data = new UserDTO()
@@ -263,7 +272,8 @@ namespace MonsterClickerAPI.Endpoints
                 Amount = result.Amount,
                 ItemId = result.ItemId,
                 ItemName = item.ItemName,
-                ItemSpriteUrl = item.ItemSpriteUrl
+                ItemSpriteUrl = item.ItemSpriteUrl,
+                Value = item.Value
             };
             return TypedResults.Ok(payload);
 
@@ -295,7 +305,8 @@ namespace MonsterClickerAPI.Endpoints
                 Amount = result.Amount,
                 ItemId = result.ItemId,
                 ItemName = getItem.ItemName,
-                ItemSpriteUrl = getItem.ItemSpriteUrl
+                ItemSpriteUrl = getItem.ItemSpriteUrl,
+                Value = getItem.Value
             };
             return TypedResults.Ok(payload);
 
@@ -328,7 +339,8 @@ namespace MonsterClickerAPI.Endpoints
                 Amount = result.Amount,
                 ItemId = result.ItemId,
                 ItemName = getItem.ItemName,
-                ItemSpriteUrl = getItem.ItemSpriteUrl
+                ItemSpriteUrl = getItem.ItemSpriteUrl,
+                Value = getItem.Value
             };
             return TypedResults.Ok(payload);
 
@@ -360,6 +372,7 @@ namespace MonsterClickerAPI.Endpoints
                     temp.ItemSpriteUrl = validItem.ItemSpriteUrl;
                     temp.ItemId = validItem.Id;
                     temp.Amount = inventory.Amount;
+                    temp.Value = validItem.Value;
                     fullInventory.Add(temp);
                 }
             }

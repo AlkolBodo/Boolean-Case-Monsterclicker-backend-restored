@@ -48,6 +48,7 @@ namespace MonsterClickerAPI.Endpoints
                             DropRate = monstertable.DropRate,
                             MinDrop = monstertable.MinDrop,
                             MaxDrop = monstertable.MaxDrop,
+                            Value = monstertable.Item.Value
                         };
                         monsteritems.Add(item);
                     }
@@ -92,6 +93,7 @@ namespace MonsterClickerAPI.Endpoints
                         DropRate = table.DropRate,
                         MinDrop = table.MinDrop,
                         MaxDrop = table.MaxDrop,
+                        Value = table.Item.Value
                     };
                     items.Add(itemDTO);
                 }
@@ -141,6 +143,7 @@ namespace MonsterClickerAPI.Endpoints
                                 DropRate = monstertable.DropRate,
                                 MinDrop = monstertable.MinDrop,
                                 MaxDrop = monstertable.MaxDrop,
+                                Value = monstertable.Item.Value
                             };
                             monsteritems.Add(item);
                         }
@@ -195,6 +198,7 @@ namespace MonsterClickerAPI.Endpoints
                             DropRate = monstertable.DropRate,
                             MinDrop = monstertable.MinDrop,
                             MaxDrop = monstertable.MaxDrop,
+                            Value = monstertable.Item.Value
                         };
                         monsteritems.Add(item);
                     }

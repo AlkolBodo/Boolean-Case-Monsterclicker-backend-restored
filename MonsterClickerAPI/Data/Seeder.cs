@@ -147,12 +147,15 @@ namespace MonsterClickerAPI.Data
                 _stats.Add(stats);
             }
 
+            Random itemValue = new Random();
+
             for (int i = 1; i < _monsteritems.Count()+1; i++)
             {
                 Item item = new Item();
                 item.Id = i;
                 item.ItemName = _monsteritems[i-1];
-                item.ItemSpriteUrl = urlstring + _spriteurls[i];    
+                item.ItemSpriteUrl = urlstring + _spriteurls[i];
+                item.Value = itemValue.Next(1, 21);
                 _items.Add(item);
             }
 

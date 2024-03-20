@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MonsterClickerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class newUpdate : Migration
+    public partial class guh : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,7 +47,8 @@ namespace MonsterClickerAPI.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     item_name = table.Column<string>(type: "text", nullable: false),
-                    item_sprite_url = table.Column<string>(type: "text", nullable: false)
+                    item_sprite_url = table.Column<string>(type: "text", nullable: false),
+                    value = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,7 +203,7 @@ namespace MonsterClickerAPI.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    player_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
                     item_id = table.Column<int>(type: "integer", nullable: false),
                     amount = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -216,8 +217,8 @@ namespace MonsterClickerAPI.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_player_inventory_user_player_id",
-                        column: x => x.player_id,
+                        name: "FK_player_inventory_user_user_id",
+                        column: x => x.user_id,
                         principalTable: "user",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -267,13 +268,13 @@ namespace MonsterClickerAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "item",
-                columns: new[] { "id", "item_name", "item_sprite_url" },
+                columns: new[] { "id", "item_name", "item_sprite_url", "value" },
                 values: new object[,]
                 {
-                    { 1, "Bone", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Disgusting%20Fork" },
-                    { 2, "Blob", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Ancient%20Sweet%20Bag" },
-                    { 3, "Spirit energy", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Fossilized%20Banana" },
-                    { 4, "Scrap", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Grand%20Old%20Bag" }
+                    { 1, "Bone", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Disgusting%20Fork", 4f },
+                    { 2, "Blob", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Ancient%20Sweet%20Bag", 5f },
+                    { 3, "Spirit energy", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Fossilized%20Banana", 9f },
+                    { 4, "Scrap", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Grand%20Old%20Bag", 14f }
                 });
 
             migrationBuilder.InsertData(
@@ -318,47 +319,53 @@ namespace MonsterClickerAPI.Migrations
                 columns: new[] { "id", "drop_rate", "item_id", "max_drop", "min_drop", "monster_id" },
                 values: new object[,]
                 {
-                    { 1, 42f, 4, 5, 1, 1 },
-                    { 2, 38f, 1, 3, 2, 2 },
-                    { 3, 63f, 4, 5, 2, 2 },
-                    { 4, 77f, 3, 4, 2, 3 },
-                    { 5, 40f, 2, 4, 2, 4 },
-                    { 6, 48f, 2, 8, 4, 5 },
-                    { 7, 71f, 3, 4, 1, 5 },
-                    { 8, 57f, 4, 5, 2, 6 },
-                    { 9, 69f, 4, 3, 1, 7 },
-                    { 10, 21f, 3, 5, 4, 8 },
-                    { 11, 35f, 4, 3, 2, 9 },
-                    { 12, 40f, 3, 5, 4, 10 },
-                    { 13, 65f, 4, 4, 3, 10 },
-                    { 14, 42f, 3, 3, 2, 11 },
-                    { 15, 46f, 4, 2, 1, 12 },
-                    { 16, 64f, 2, 5, 4, 13 },
-                    { 17, 74f, 3, 6, 2, 14 },
-                    { 18, 74f, 4, 4, 3, 15 },
-                    { 19, 55f, 1, 2, 1, 15 },
-                    { 20, 77f, 1, 5, 2, 16 },
-                    { 21, 35f, 2, 6, 2, 17 },
-                    { 22, 64f, 3, 7, 3, 18 },
-                    { 23, 56f, 1, 6, 2, 18 },
-                    { 24, 25f, 4, 5, 1, 19 },
-                    { 25, 67f, 2, 6, 4, 19 },
-                    { 26, 37f, 3, 3, 2, 20 },
-                    { 27, 37f, 2, 6, 4, 21 },
-                    { 28, 35f, 1, 5, 2, 21 },
-                    { 29, 79f, 4, 4, 1, 22 },
-                    { 30, 46f, 1, 7, 4, 23 },
-                    { 31, 51f, 3, 4, 3, 24 },
-                    { 32, 69f, 2, 8, 4, 25 },
-                    { 33, 21f, 3, 7, 3, 25 },
-                    { 34, 56f, 2, 6, 2, 26 },
-                    { 35, 22f, 3, 5, 2, 26 },
-                    { 36, 61f, 4, 2, 1, 27 },
-                    { 37, 23f, 1, 5, 2, 28 },
-                    { 38, 28f, 4, 7, 4, 29 },
-                    { 39, 37f, 2, 6, 3, 29 },
-                    { 40, 33f, 1, 5, 2, 30 },
-                    { 41, 53f, 3, 5, 1, 30 }
+                    { 1, 43f, 3, 5, 4, 1 },
+                    { 2, 35f, 4, 2, 1, 2 },
+                    { 3, 71f, 1, 7, 3, 2 },
+                    { 4, 23f, 3, 5, 3, 3 },
+                    { 5, 60f, 4, 3, 2, 3 },
+                    { 6, 43f, 2, 4, 1, 4 },
+                    { 7, 70f, 3, 4, 3, 4 },
+                    { 8, 63f, 1, 5, 3, 5 },
+                    { 9, 35f, 3, 8, 4, 5 },
+                    { 10, 48f, 2, 6, 3, 6 },
+                    { 11, 47f, 3, 4, 2, 7 },
+                    { 12, 67f, 1, 5, 4, 8 },
+                    { 13, 72f, 4, 6, 3, 8 },
+                    { 14, 66f, 4, 7, 4, 9 },
+                    { 15, 75f, 4, 4, 3, 10 },
+                    { 16, 55f, 3, 6, 2, 10 },
+                    { 17, 20f, 4, 8, 4, 11 },
+                    { 18, 49f, 4, 5, 3, 12 },
+                    { 19, 69f, 3, 6, 2, 12 },
+                    { 20, 56f, 1, 3, 2, 13 },
+                    { 21, 56f, 3, 8, 4, 13 },
+                    { 22, 26f, 3, 4, 3, 14 },
+                    { 23, 67f, 4, 5, 2, 14 },
+                    { 24, 64f, 2, 4, 1, 15 },
+                    { 25, 43f, 1, 6, 4, 15 },
+                    { 26, 62f, 2, 4, 1, 16 },
+                    { 27, 42f, 3, 4, 2, 17 },
+                    { 28, 44f, 2, 3, 1, 18 },
+                    { 29, 37f, 2, 2, 1, 19 },
+                    { 30, 70f, 3, 4, 2, 19 },
+                    { 31, 51f, 4, 5, 4, 20 },
+                    { 32, 60f, 4, 7, 4, 21 },
+                    { 33, 32f, 2, 6, 4, 21 },
+                    { 34, 34f, 1, 5, 4, 22 },
+                    { 35, 73f, 2, 6, 2, 22 },
+                    { 36, 23f, 1, 4, 2, 23 },
+                    { 37, 54f, 3, 7, 3, 23 },
+                    { 38, 20f, 2, 8, 4, 24 },
+                    { 39, 70f, 1, 4, 3, 25 },
+                    { 40, 32f, 2, 5, 3, 25 },
+                    { 41, 45f, 4, 8, 4, 26 },
+                    { 42, 76f, 1, 6, 3, 26 },
+                    { 43, 66f, 4, 4, 1, 27 },
+                    { 44, 34f, 3, 7, 4, 28 },
+                    { 45, 65f, 3, 5, 2, 29 },
+                    { 46, 44f, 1, 6, 2, 29 },
+                    { 47, 20f, 1, 4, 2, 30 }
                 });
 
             migrationBuilder.InsertData(
@@ -366,36 +373,36 @@ namespace MonsterClickerAPI.Migrations
                 columns: new[] { "id", "basehealth", "extra_health", "gold_drop", "monster_id" },
                 values: new object[,]
                 {
-                    { 1, 10f, 8f, 2, 1 },
+                    { 1, 10f, 9f, 1, 1 },
                     { 2, 10f, 8f, 2, 2 },
-                    { 3, 10f, 9f, 4, 3 },
-                    { 4, 10f, 7f, 2, 4 },
-                    { 5, 10f, 6f, 4, 5 },
-                    { 6, 10f, 7f, 1, 6 },
-                    { 7, 10f, 9f, 2, 7 },
-                    { 8, 10f, 6f, 2, 8 },
-                    { 9, 10f, 6f, 2, 9 },
-                    { 10, 10f, 8f, 4, 10 },
-                    { 11, 10f, 5f, 1, 11 },
-                    { 12, 10f, 7f, 2, 12 },
-                    { 13, 10f, 7f, 1, 13 },
-                    { 14, 10f, 7f, 3, 14 },
-                    { 15, 10f, 9f, 2, 15 },
-                    { 16, 10f, 9f, 2, 16 },
-                    { 17, 10f, 8f, 3, 17 },
-                    { 18, 10f, 7f, 2, 18 },
-                    { 19, 10f, 9f, 1, 19 },
-                    { 20, 10f, 7f, 4, 20 },
+                    { 3, 10f, 8f, 4, 3 },
+                    { 4, 10f, 9f, 2, 4 },
+                    { 5, 10f, 8f, 3, 5 },
+                    { 6, 10f, 9f, 3, 6 },
+                    { 7, 10f, 8f, 4, 7 },
+                    { 8, 10f, 9f, 4, 8 },
+                    { 9, 10f, 5f, 4, 9 },
+                    { 10, 10f, 6f, 4, 10 },
+                    { 11, 10f, 7f, 4, 11 },
+                    { 12, 10f, 9f, 2, 12 },
+                    { 13, 10f, 9f, 2, 13 },
+                    { 14, 10f, 8f, 3, 14 },
+                    { 15, 10f, 8f, 1, 15 },
+                    { 16, 10f, 7f, 3, 16 },
+                    { 17, 10f, 9f, 1, 17 },
+                    { 18, 10f, 6f, 3, 18 },
+                    { 19, 10f, 6f, 4, 19 },
+                    { 20, 10f, 8f, 1, 20 },
                     { 21, 10f, 6f, 1, 21 },
-                    { 22, 10f, 5f, 4, 22 },
-                    { 23, 10f, 8f, 1, 23 },
-                    { 24, 10f, 6f, 1, 24 },
-                    { 25, 10f, 8f, 4, 25 },
-                    { 26, 10f, 7f, 4, 26 },
-                    { 27, 10f, 7f, 2, 27 },
-                    { 28, 10f, 6f, 3, 28 },
-                    { 29, 10f, 7f, 2, 29 },
-                    { 30, 10f, 5f, 3, 30 }
+                    { 22, 10f, 7f, 1, 22 },
+                    { 23, 10f, 9f, 2, 23 },
+                    { 24, 10f, 5f, 2, 24 },
+                    { 25, 10f, 7f, 4, 25 },
+                    { 26, 10f, 8f, 3, 26 },
+                    { 27, 10f, 5f, 1, 27 },
+                    { 28, 10f, 7f, 3, 28 },
+                    { 29, 10f, 6f, 2, 29 },
+                    { 30, 10f, 8f, 2, 30 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -440,9 +447,9 @@ namespace MonsterClickerAPI.Migrations
                 column: "item_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_player_inventory_player_id",
+                name: "IX_player_inventory_user_id",
                 table: "player_inventory",
-                column: "player_id");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_player_stats_user_id",
