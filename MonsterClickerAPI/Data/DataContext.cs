@@ -8,29 +8,18 @@ using System.Reflection.Emit;
 
 namespace MonsterClickerAPI.Data
 {
-    public class DataContext: IdentityUserContext<AppUser>
+    public class DataContext : IdentityUserContext<AppUser>
     {
-        private string _connectionString;
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            _connectionString = configuration.GetValue<string>("ConnectionStrings:DefaultConnectionString")!;
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql(_connectionString);
-
-
-            optionsBuilder.LogTo(message => Debug.WriteLine(message));
+          
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            Seeder seed = new Seeder();
+            //Seeder seed = new Seeder();
 
 
             builder.Entity<UserStats>().Navigation(x => x.User).AutoInclude();
@@ -44,7 +33,7 @@ namespace MonsterClickerAPI.Data
             builder.Entity<MonsterItemTable>().Navigation(x => x.Item).AutoInclude();
 
 
-            builder.Entity<Item>().HasData(seed.Items);
+            //builder.Entity<Item>().HasData(seed.Items);
         }
 
         public DbSet<Item> Items { get; set; }

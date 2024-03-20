@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MonsterClickerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class test2 : Migration
+    public partial class Tableupdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,8 @@ namespace MonsterClickerAPI.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     monster_name = table.Column<string>(type: "text", nullable: false),
-                    monster_sprite_ulr = table.Column<string>(type: "text", nullable: false)
+                    monster_sprite_ulr = table.Column<string>(type: "text", nullable: false),
+                    world_location = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -178,7 +179,8 @@ namespace MonsterClickerAPI.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     monster_id = table.Column<int>(type: "integer", nullable: false),
-                    health = table.Column<float>(type: "real", nullable: false),
+                    basehealth = table.Column<float>(type: "real", nullable: false),
+                    extra_health = table.Column<float>(type: "real", nullable: false),
                     gold_drop = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -260,11 +262,6 @@ namespace MonsterClickerAPI.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "item",
-                columns: new[] { "id", "item_name", "item_sprite_url" },
-                values: new object[] { 1, "Bone", "NONE" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
