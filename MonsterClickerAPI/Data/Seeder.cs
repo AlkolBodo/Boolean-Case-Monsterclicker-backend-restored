@@ -57,7 +57,7 @@ namespace MonsterClickerAPI.Data
         private List<string> _spriteurls = new List<string>()
         {
             "Broken%20Amulet",
-            "Broken%20Discusting%20Fork",
+            "Broken%20Disgusting%20Fork",
             "Ancient%20Sweet%20Bag",
             "Fossilized%20Banana",
             "Grand%20Old%20Bag",
@@ -76,12 +76,12 @@ namespace MonsterClickerAPI.Data
             "Mysterious%20Bread",
             "Small%20Sandals",
             "Stone%20Carrot",
-            "Spicy%20Sandals%20Of%20Purifying",
+            "Spicy%20Sandals%20of%20Purifying",
             //Atlantis
             "Cheesy%20Broccoli",
             "Crusty%20Beautiful%20Vitamins",
             "Dark%20Metal%20Alien",
-            "Floating%20bBanana",
+            "Floating%20Banana",
             "Fresh%20Cheesy%20Pepper",
             "Light%20Gem",
             "Salty%20Banana",

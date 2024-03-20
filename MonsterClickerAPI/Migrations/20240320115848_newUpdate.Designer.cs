@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MonsterClickerAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240320094251_SeederData")]
-    partial class SeederData
+    [Migration("20240320115848_newUpdate")]
+    partial class newUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -186,7 +186,7 @@ namespace MonsterClickerAPI.Migrations
                         {
                             Id = 1,
                             ItemName = "Bone",
-                            ItemSpriteUrl = "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Discusting%20Fork"
+                            ItemSpriteUrl = "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Disgusting%20Fork"
                         },
                         new
                         {
@@ -248,7 +248,7 @@ namespace MonsterClickerAPI.Migrations
                             Id = 2,
                             Location = 0,
                             MonsterName = "Fallen Angel",
-                            MonsterSpriteUrl = "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Discusting%20Fork.png"
+                            MonsterSpriteUrl = "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Disgusting%20Fork.png"
                         },
                         new
                         {
@@ -374,7 +374,7 @@ namespace MonsterClickerAPI.Migrations
                             Id = 20,
                             Location = 1,
                             MonsterName = "Forgotten farmer",
-                            MonsterSpriteUrl = "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Spicy%20Sandals%20Of%20Purifying.png"
+                            MonsterSpriteUrl = "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Spicy%20Sandals%20of%20Purifying.png"
                         },
                         new
                         {
@@ -402,7 +402,7 @@ namespace MonsterClickerAPI.Migrations
                             Id = 24,
                             Location = 2,
                             MonsterName = "Futuristic frog",
-                            MonsterSpriteUrl = "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Floating%20bBanana.png"
+                            MonsterSpriteUrl = "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Floating%20Banana.png"
                         },
                         new
                         {
@@ -489,388 +489,370 @@ namespace MonsterClickerAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DropRate = 56f,
+                            DropRate = 42f,
                             ItemId = 4,
-                            MaxDrop = 8,
-                            MinDrop = 4,
+                            MaxDrop = 5,
+                            MinDrop = 1,
                             MonsterId = 1
                         },
                         new
                         {
                             Id = 2,
-                            DropRate = 74f,
-                            ItemId = 4,
+                            DropRate = 38f,
+                            ItemId = 1,
                             MaxDrop = 3,
-                            MinDrop = 1,
+                            MinDrop = 2,
                             MonsterId = 2
                         },
                         new
                         {
                             Id = 3,
-                            DropRate = 30f,
+                            DropRate = 63f,
                             ItemId = 4,
                             MaxDrop = 5,
-                            MinDrop = 3,
-                            MonsterId = 3
+                            MinDrop = 2,
+                            MonsterId = 2
                         },
                         new
                         {
                             Id = 4,
-                            DropRate = 73f,
+                            DropRate = 77f,
                             ItemId = 3,
-                            MaxDrop = 5,
-                            MinDrop = 3,
+                            MaxDrop = 4,
+                            MinDrop = 2,
                             MonsterId = 3
                         },
                         new
                         {
                             Id = 5,
-                            DropRate = 54f,
-                            ItemId = 1,
-                            MaxDrop = 2,
-                            MinDrop = 1,
+                            DropRate = 40f,
+                            ItemId = 2,
+                            MaxDrop = 4,
+                            MinDrop = 2,
                             MonsterId = 4
                         },
                         new
                         {
                             Id = 6,
-                            DropRate = 50f,
-                            ItemId = 3,
-                            MaxDrop = 4,
-                            MinDrop = 1,
-                            MonsterId = 4
-                        },
-                        new
-                        {
-                            Id = 7,
-                            DropRate = 36f,
-                            ItemId = 4,
-                            MaxDrop = 5,
+                            DropRate = 48f,
+                            ItemId = 2,
+                            MaxDrop = 8,
                             MinDrop = 4,
                             MonsterId = 5
                         },
                         new
                         {
-                            Id = 8,
-                            DropRate = 59f,
-                            ItemId = 1,
-                            MaxDrop = 5,
+                            Id = 7,
+                            DropRate = 71f,
+                            ItemId = 3,
+                            MaxDrop = 4,
                             MinDrop = 1,
+                            MonsterId = 5
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DropRate = 57f,
+                            ItemId = 4,
+                            MaxDrop = 5,
+                            MinDrop = 2,
                             MonsterId = 6
                         },
                         new
                         {
                             Id = 9,
-                            DropRate = 40f,
-                            ItemId = 2,
-                            MaxDrop = 5,
-                            MinDrop = 2,
+                            DropRate = 69f,
+                            ItemId = 4,
+                            MaxDrop = 3,
+                            MinDrop = 1,
                             MonsterId = 7
                         },
                         new
                         {
                             Id = 10,
-                            DropRate = 62f,
-                            ItemId = 4,
-                            MaxDrop = 4,
-                            MinDrop = 2,
-                            MonsterId = 7
-                        },
-                        new
-                        {
-                            Id = 11,
-                            DropRate = 25f,
-                            ItemId = 2,
-                            MaxDrop = 3,
-                            MinDrop = 2,
+                            DropRate = 21f,
+                            ItemId = 3,
+                            MaxDrop = 5,
+                            MinDrop = 4,
                             MonsterId = 8
                         },
                         new
                         {
-                            Id = 12,
-                            DropRate = 79f,
-                            ItemId = 2,
+                            Id = 11,
+                            DropRate = 35f,
+                            ItemId = 4,
                             MaxDrop = 3,
-                            MinDrop = 1,
+                            MinDrop = 2,
                             MonsterId = 9
                         },
                         new
                         {
-                            Id = 13,
-                            DropRate = 28f,
+                            Id = 12,
+                            DropRate = 40f,
                             ItemId = 3,
-                            MaxDrop = 8,
+                            MaxDrop = 5,
                             MinDrop = 4,
                             MonsterId = 10
                         },
                         new
                         {
-                            Id = 14,
-                            DropRate = 22f,
+                            Id = 13,
+                            DropRate = 65f,
                             ItemId = 4,
-                            MaxDrop = 6,
-                            MinDrop = 4,
+                            MaxDrop = 4,
+                            MinDrop = 3,
+                            MonsterId = 10
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DropRate = 42f,
+                            ItemId = 3,
+                            MaxDrop = 3,
+                            MinDrop = 2,
                             MonsterId = 11
                         },
                         new
                         {
                             Id = 15,
-                            DropRate = 34f,
-                            ItemId = 1,
-                            MaxDrop = 6,
-                            MinDrop = 3,
-                            MonsterId = 11
-                        },
-                        new
-                        {
-                            Id = 16,
-                            DropRate = 77f,
-                            ItemId = 2,
-                            MaxDrop = 7,
-                            MinDrop = 4,
-                            MonsterId = 12
-                        },
-                        new
-                        {
-                            Id = 17,
-                            DropRate = 50f,
-                            ItemId = 1,
+                            DropRate = 46f,
+                            ItemId = 4,
                             MaxDrop = 2,
                             MinDrop = 1,
                             MonsterId = 12
                         },
                         new
                         {
-                            Id = 18,
-                            DropRate = 62f,
+                            Id = 16,
+                            DropRate = 64f,
                             ItemId = 2,
                             MaxDrop = 5,
-                            MinDrop = 1,
+                            MinDrop = 4,
                             MonsterId = 13
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DropRate = 74f,
+                            ItemId = 3,
+                            MaxDrop = 6,
+                            MinDrop = 2,
+                            MonsterId = 14
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DropRate = 74f,
+                            ItemId = 4,
+                            MaxDrop = 4,
+                            MinDrop = 3,
+                            MonsterId = 15
                         },
                         new
                         {
                             Id = 19,
-                            DropRate = 65f,
-                            ItemId = 4,
-                            MaxDrop = 4,
-                            MinDrop = 3,
-                            MonsterId = 13
+                            DropRate = 55f,
+                            ItemId = 1,
+                            MaxDrop = 2,
+                            MinDrop = 1,
+                            MonsterId = 15
                         },
                         new
                         {
                             Id = 20,
-                            DropRate = 21f,
-                            ItemId = 2,
-                            MaxDrop = 3,
-                            MinDrop = 1,
-                            MonsterId = 14
+                            DropRate = 77f,
+                            ItemId = 1,
+                            MaxDrop = 5,
+                            MinDrop = 2,
+                            MonsterId = 16
                         },
                         new
                         {
                             Id = 21,
                             DropRate = 35f,
-                            ItemId = 1,
-                            MaxDrop = 4,
-                            MinDrop = 1,
-                            MonsterId = 15
+                            ItemId = 2,
+                            MaxDrop = 6,
+                            MinDrop = 2,
+                            MonsterId = 17
                         },
                         new
                         {
                             Id = 22,
-                            DropRate = 71f,
+                            DropRate = 64f,
                             ItemId = 3,
-                            MaxDrop = 5,
-                            MinDrop = 4,
-                            MonsterId = 15
-                        },
-                        new
-                        {
-                            Id = 23,
-                            DropRate = 47f,
-                            ItemId = 2,
                             MaxDrop = 7,
                             MinDrop = 3,
-                            MonsterId = 16
-                        },
-                        new
-                        {
-                            Id = 24,
-                            DropRate = 20f,
-                            ItemId = 2,
-                            MaxDrop = 5,
-                            MinDrop = 3,
-                            MonsterId = 17
-                        },
-                        new
-                        {
-                            Id = 25,
-                            DropRate = 41f,
-                            ItemId = 4,
-                            MaxDrop = 5,
-                            MinDrop = 2,
-                            MonsterId = 17
-                        },
-                        new
-                        {
-                            Id = 26,
-                            DropRate = 45f,
-                            ItemId = 2,
-                            MaxDrop = 7,
-                            MinDrop = 4,
                             MonsterId = 18
                         },
                         new
                         {
-                            Id = 27,
-                            DropRate = 68f,
+                            Id = 23,
+                            DropRate = 56f,
+                            ItemId = 1,
+                            MaxDrop = 6,
+                            MinDrop = 2,
+                            MonsterId = 18
+                        },
+                        new
+                        {
+                            Id = 24,
+                            DropRate = 25f,
                             ItemId = 4,
                             MaxDrop = 5,
-                            MinDrop = 2,
+                            MinDrop = 1,
                             MonsterId = 19
                         },
                         new
                         {
-                            Id = 28,
-                            DropRate = 44f,
-                            ItemId = 4,
-                            MaxDrop = 5,
-                            MinDrop = 1,
+                            Id = 25,
+                            DropRate = 67f,
+                            ItemId = 2,
+                            MaxDrop = 6,
+                            MinDrop = 4,
+                            MonsterId = 19
+                        },
+                        new
+                        {
+                            Id = 26,
+                            DropRate = 37f,
+                            ItemId = 3,
+                            MaxDrop = 3,
+                            MinDrop = 2,
                             MonsterId = 20
                         },
                         new
                         {
-                            Id = 29,
-                            DropRate = 44f,
-                            ItemId = 3,
-                            MaxDrop = 4,
-                            MinDrop = 1,
-                            MonsterId = 20
-                        },
-                        new
-                        {
-                            Id = 30,
-                            DropRate = 29f,
-                            ItemId = 3,
-                            MaxDrop = 5,
-                            MinDrop = 1,
+                            Id = 27,
+                            DropRate = 37f,
+                            ItemId = 2,
+                            MaxDrop = 6,
+                            MinDrop = 4,
                             MonsterId = 21
                         },
                         new
                         {
-                            Id = 31,
-                            DropRate = 33f,
+                            Id = 28,
+                            DropRate = 35f,
+                            ItemId = 1,
+                            MaxDrop = 5,
+                            MinDrop = 2,
+                            MonsterId = 21
+                        },
+                        new
+                        {
+                            Id = 29,
+                            DropRate = 79f,
                             ItemId = 4,
                             MaxDrop = 4,
-                            MinDrop = 2,
+                            MinDrop = 1,
                             MonsterId = 22
                         },
                         new
                         {
-                            Id = 32,
-                            DropRate = 42f,
+                            Id = 30,
+                            DropRate = 46f,
                             ItemId = 1,
-                            MaxDrop = 4,
-                            MinDrop = 2,
+                            MaxDrop = 7,
+                            MinDrop = 4,
                             MonsterId = 23
                         },
                         new
                         {
-                            Id = 33,
-                            DropRate = 31f,
+                            Id = 31,
+                            DropRate = 51f,
                             ItemId = 3,
-                            MaxDrop = 5,
+                            MaxDrop = 4,
                             MinDrop = 3,
                             MonsterId = 24
                         },
                         new
                         {
-                            Id = 34,
-                            DropRate = 52f,
+                            Id = 32,
+                            DropRate = 69f,
                             ItemId = 2,
                             MaxDrop = 8,
                             MinDrop = 4,
-                            MonsterId = 24
-                        },
-                        new
-                        {
-                            Id = 35,
-                            DropRate = 76f,
-                            ItemId = 4,
-                            MaxDrop = 3,
-                            MinDrop = 2,
                             MonsterId = 25
                         },
                         new
                         {
-                            Id = 36,
-                            DropRate = 24f,
-                            ItemId = 2,
+                            Id = 33,
+                            DropRate = 21f,
+                            ItemId = 3,
                             MaxDrop = 7,
                             MinDrop = 3,
+                            MonsterId = 25
+                        },
+                        new
+                        {
+                            Id = 34,
+                            DropRate = 56f,
+                            ItemId = 2,
+                            MaxDrop = 6,
+                            MinDrop = 2,
                             MonsterId = 26
                         },
                         new
                         {
-                            Id = 37,
-                            DropRate = 46f,
-                            ItemId = 1,
+                            Id = 35,
+                            DropRate = 22f,
+                            ItemId = 3,
                             MaxDrop = 5,
+                            MinDrop = 2,
+                            MonsterId = 26
+                        },
+                        new
+                        {
+                            Id = 36,
+                            DropRate = 61f,
+                            ItemId = 4,
+                            MaxDrop = 2,
                             MinDrop = 1,
                             MonsterId = 27
                         },
                         new
                         {
-                            Id = 38,
-                            DropRate = 44f,
-                            ItemId = 3,
-                            MaxDrop = 3,
+                            Id = 37,
+                            DropRate = 23f,
+                            ItemId = 1,
+                            MaxDrop = 5,
                             MinDrop = 2,
                             MonsterId = 28
                         },
                         new
                         {
-                            Id = 39,
-                            DropRate = 65f,
-                            ItemId = 2,
-                            MaxDrop = 2,
-                            MinDrop = 1,
-                            MonsterId = 28
-                        },
-                        new
-                        {
-                            Id = 40,
-                            DropRate = 47f,
-                            ItemId = 2,
-                            MaxDrop = 8,
+                            Id = 38,
+                            DropRate = 28f,
+                            ItemId = 4,
+                            MaxDrop = 7,
                             MinDrop = 4,
                             MonsterId = 29
                         },
                         new
                         {
-                            Id = 41,
-                            DropRate = 31f,
-                            ItemId = 1,
-                            MaxDrop = 5,
-                            MinDrop = 1,
+                            Id = 39,
+                            DropRate = 37f,
+                            ItemId = 2,
+                            MaxDrop = 6,
+                            MinDrop = 3,
                             MonsterId = 29
                         },
                         new
                         {
-                            Id = 42,
-                            DropRate = 57f,
-                            ItemId = 3,
-                            MaxDrop = 4,
-                            MinDrop = 1,
+                            Id = 40,
+                            DropRate = 33f,
+                            ItemId = 1,
+                            MaxDrop = 5,
+                            MinDrop = 2,
                             MonsterId = 30
                         },
                         new
                         {
-                            Id = 43,
-                            DropRate = 64f,
-                            ItemId = 4,
-                            MaxDrop = 4,
-                            MinDrop = 3,
+                            Id = 41,
+                            DropRate = 53f,
+                            ItemId = 3,
+                            MaxDrop = 5,
+                            MinDrop = 1,
                             MonsterId = 30
                         });
                 });
@@ -911,24 +893,24 @@ namespace MonsterClickerAPI.Migrations
                         {
                             Id = 1,
                             BaseHealth = 10f,
-                            ExtraHealth = 5f,
-                            GoldDrop = 3,
+                            ExtraHealth = 8f,
+                            GoldDrop = 2,
                             MonsterId = 1
                         },
                         new
                         {
                             Id = 2,
                             BaseHealth = 10f,
-                            ExtraHealth = 5f,
-                            GoldDrop = 3,
+                            ExtraHealth = 8f,
+                            GoldDrop = 2,
                             MonsterId = 2
                         },
                         new
                         {
                             Id = 3,
                             BaseHealth = 10f,
-                            ExtraHealth = 7f,
-                            GoldDrop = 1,
+                            ExtraHealth = 9f,
+                            GoldDrop = 4,
                             MonsterId = 3
                         },
                         new
@@ -936,46 +918,46 @@ namespace MonsterClickerAPI.Migrations
                             Id = 4,
                             BaseHealth = 10f,
                             ExtraHealth = 7f,
-                            GoldDrop = 3,
+                            GoldDrop = 2,
                             MonsterId = 4
                         },
                         new
                         {
                             Id = 5,
                             BaseHealth = 10f,
-                            ExtraHealth = 7f,
-                            GoldDrop = 3,
+                            ExtraHealth = 6f,
+                            GoldDrop = 4,
                             MonsterId = 5
                         },
                         new
                         {
                             Id = 6,
                             BaseHealth = 10f,
-                            ExtraHealth = 6f,
-                            GoldDrop = 3,
+                            ExtraHealth = 7f,
+                            GoldDrop = 1,
                             MonsterId = 6
                         },
                         new
                         {
                             Id = 7,
                             BaseHealth = 10f,
-                            ExtraHealth = 6f,
-                            GoldDrop = 3,
+                            ExtraHealth = 9f,
+                            GoldDrop = 2,
                             MonsterId = 7
                         },
                         new
                         {
                             Id = 8,
                             BaseHealth = 10f,
-                            ExtraHealth = 7f,
-                            GoldDrop = 4,
+                            ExtraHealth = 6f,
+                            GoldDrop = 2,
                             MonsterId = 8
                         },
                         new
                         {
                             Id = 9,
                             BaseHealth = 10f,
-                            ExtraHealth = 5f,
+                            ExtraHealth = 6f,
                             GoldDrop = 2,
                             MonsterId = 9
                         },
@@ -983,7 +965,7 @@ namespace MonsterClickerAPI.Migrations
                         {
                             Id = 10,
                             BaseHealth = 10f,
-                            ExtraHealth = 7f,
+                            ExtraHealth = 8f,
                             GoldDrop = 4,
                             MonsterId = 10
                         },
@@ -991,15 +973,15 @@ namespace MonsterClickerAPI.Migrations
                         {
                             Id = 11,
                             BaseHealth = 10f,
-                            ExtraHealth = 7f,
-                            GoldDrop = 2,
+                            ExtraHealth = 5f,
+                            GoldDrop = 1,
                             MonsterId = 11
                         },
                         new
                         {
                             Id = 12,
                             BaseHealth = 10f,
-                            ExtraHealth = 5f,
+                            ExtraHealth = 7f,
                             GoldDrop = 2,
                             MonsterId = 12
                         },
@@ -1007,15 +989,15 @@ namespace MonsterClickerAPI.Migrations
                         {
                             Id = 13,
                             BaseHealth = 10f,
-                            ExtraHealth = 5f,
-                            GoldDrop = 4,
+                            ExtraHealth = 7f,
+                            GoldDrop = 1,
                             MonsterId = 13
                         },
                         new
                         {
                             Id = 14,
                             BaseHealth = 10f,
-                            ExtraHealth = 8f,
+                            ExtraHealth = 7f,
                             GoldDrop = 3,
                             MonsterId = 14
                         },
@@ -1023,7 +1005,7 @@ namespace MonsterClickerAPI.Migrations
                         {
                             Id = 15,
                             BaseHealth = 10f,
-                            ExtraHealth = 8f,
+                            ExtraHealth = 9f,
                             GoldDrop = 2,
                             MonsterId = 15
                         },
@@ -1032,7 +1014,7 @@ namespace MonsterClickerAPI.Migrations
                             Id = 16,
                             BaseHealth = 10f,
                             ExtraHealth = 9f,
-                            GoldDrop = 4,
+                            GoldDrop = 2,
                             MonsterId = 16
                         },
                         new
@@ -1040,7 +1022,7 @@ namespace MonsterClickerAPI.Migrations
                             Id = 17,
                             BaseHealth = 10f,
                             ExtraHealth = 8f,
-                            GoldDrop = 4,
+                            GoldDrop = 3,
                             MonsterId = 17
                         },
                         new
@@ -1048,15 +1030,15 @@ namespace MonsterClickerAPI.Migrations
                             Id = 18,
                             BaseHealth = 10f,
                             ExtraHealth = 7f,
-                            GoldDrop = 3,
+                            GoldDrop = 2,
                             MonsterId = 18
                         },
                         new
                         {
                             Id = 19,
                             BaseHealth = 10f,
-                            ExtraHealth = 8f,
-                            GoldDrop = 2,
+                            ExtraHealth = 9f,
+                            GoldDrop = 1,
                             MonsterId = 19
                         },
                         new
@@ -1072,7 +1054,7 @@ namespace MonsterClickerAPI.Migrations
                             Id = 21,
                             BaseHealth = 10f,
                             ExtraHealth = 6f,
-                            GoldDrop = 3,
+                            GoldDrop = 1,
                             MonsterId = 21
                         },
                         new
@@ -1080,15 +1062,15 @@ namespace MonsterClickerAPI.Migrations
                             Id = 22,
                             BaseHealth = 10f,
                             ExtraHealth = 5f,
-                            GoldDrop = 2,
+                            GoldDrop = 4,
                             MonsterId = 22
                         },
                         new
                         {
                             Id = 23,
                             BaseHealth = 10f,
-                            ExtraHealth = 5f,
-                            GoldDrop = 3,
+                            ExtraHealth = 8f,
+                            GoldDrop = 1,
                             MonsterId = 23
                         },
                         new
@@ -1096,30 +1078,30 @@ namespace MonsterClickerAPI.Migrations
                             Id = 24,
                             BaseHealth = 10f,
                             ExtraHealth = 6f,
-                            GoldDrop = 2,
+                            GoldDrop = 1,
                             MonsterId = 24
                         },
                         new
                         {
                             Id = 25,
                             BaseHealth = 10f,
-                            ExtraHealth = 5f,
-                            GoldDrop = 3,
+                            ExtraHealth = 8f,
+                            GoldDrop = 4,
                             MonsterId = 25
                         },
                         new
                         {
                             Id = 26,
                             BaseHealth = 10f,
-                            ExtraHealth = 8f,
-                            GoldDrop = 3,
+                            ExtraHealth = 7f,
+                            GoldDrop = 4,
                             MonsterId = 26
                         },
                         new
                         {
                             Id = 27,
                             BaseHealth = 10f,
-                            ExtraHealth = 8f,
+                            ExtraHealth = 7f,
                             GoldDrop = 2,
                             MonsterId = 27
                         },
@@ -1127,7 +1109,7 @@ namespace MonsterClickerAPI.Migrations
                         {
                             Id = 28,
                             BaseHealth = 10f,
-                            ExtraHealth = 5f,
+                            ExtraHealth = 6f,
                             GoldDrop = 3,
                             MonsterId = 28
                         },
@@ -1136,7 +1118,7 @@ namespace MonsterClickerAPI.Migrations
                             Id = 29,
                             BaseHealth = 10f,
                             ExtraHealth = 7f,
-                            GoldDrop = 3,
+                            GoldDrop = 2,
                             MonsterId = 29
                         },
                         new
@@ -1144,7 +1126,7 @@ namespace MonsterClickerAPI.Migrations
                             Id = 30,
                             BaseHealth = 10f,
                             ExtraHealth = 5f,
-                            GoldDrop = 4,
+                            GoldDrop = 3,
                             MonsterId = 30
                         });
                 });
@@ -1166,7 +1148,7 @@ namespace MonsterClickerAPI.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("item_id");
 
-                    b.Property<int>("PlayerId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer")
                         .HasColumnName("player_id");
 
@@ -1174,7 +1156,7 @@ namespace MonsterClickerAPI.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("player_inventory");
                 });
@@ -1255,7 +1237,7 @@ namespace MonsterClickerAPI.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
-                        .HasColumnName("User");
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
@@ -1329,15 +1311,15 @@ namespace MonsterClickerAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MonsterClickerAPI.Models.PlayerStats", "PlayerStats")
+                    b.HasOne("MonsterClickerAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("PlayerId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Item");
 
-                    b.Navigation("PlayerStats");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MonsterClickerAPI.Models.PlayerStats", b =>

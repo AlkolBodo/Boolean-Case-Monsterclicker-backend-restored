@@ -15,7 +15,7 @@ namespace MonsterClickerAPI.Endpoints
             var monsters = webApp.MapGroup("monsters");
             monsters.MapGet("/", GetMonsters);
             monsters.MapGet("/{id}", GetMonsterById);
-            monsters.MapGet("/{stage}", GetMonstersByStage);
+            monsters.MapGet("/stage/{stage}", GetMonstersByStage);
         }
 
         
