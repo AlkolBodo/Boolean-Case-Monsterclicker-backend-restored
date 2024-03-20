@@ -124,45 +124,50 @@ namespace MonsterClickerAPI.Data
         public Seeder()
         {
             int amount = _monsternames.Count();
-            for (int x = 1; x < amount; x++)
+            for (int x = 1; x < amount+1; x++)
             {
                 //  missing location
                 Monster monster = new Monster();
                 monster.Id = x;
                 monster.MonsterSpriteUrl = urlstring + _spriteurls[x-1] + pngaddon;
-                monster.MonsterName = _monsteritems[x-1];
+                monster.Location = (x-1) / 10;
+                monster.MonsterName = _monsternames[x-1];
                 _monsters.Add(monster);
             }
 
-            for (int i = 0; i < amount; i++)
+            for (int i = 1; i < amount+1; i++)
             {   
                 //  missing min/max health/gold
                 MonsterStats stats = new MonsterStats();
                 stats.Id = i;
-                stats.MonsterId = i;
-                stats.Health = generateHealth();
+                stats.MonsterId = i; 
+                stats.BaseHealth = baseHealth;
+                stats.ExtraHealth = generateHealth();
                 stats.GoldDrop = generateGoldDrop();
                 _stats.Add(stats);
             }
 
-            for (int i = 0; i < amount; i++)
+            for (int i = 1; i < _monsteritems.Count()+1; i++)
             {
                 Item item = new Item();
                 item.Id = i;
-                item.ItemName = _monsteritems[random.Next(_monsteritems.Count)];
+                item.ItemName = _monsteritems[i-1];
+                item.ItemSpriteUrl = urlstring + _spriteurls[i];    
                 _items.Add(item);
             }
 
-            int idSetter = 0;
-            for (int i = 0; i < amount; i++)
+            int idSetter = 1;
+            for (int i = 1; i < amount + 1; i++)
             {
                 for(int j = 0; j < random.Next(1, 3); j++)
                 {
                     MonsterItemTable drop = new MonsterItemTable();
                     drop.Id = idSetter++;
                     drop.MonsterId = i;
+                    do
+                    {
                     drop.ItemId = _items[random.Next(_items.Count)].Id;
-                    if(monsterItemTables.Contains(drop))
+                    }while (0 < monsterItemTables.Where(p => p.MonsterId == i && p.ItemId == drop.ItemId).Count()); 
                     drop.DropRate = random.Next(20, 80);
                     drop.MinDrop = random.Next(1, 5);
                     drop.MaxDrop = drop.MinDrop + random.Next(1, 5);
@@ -170,6 +175,10 @@ namespace MonsterClickerAPI.Data
                 }
             }
         }
+        public List<Monster> Monsters { get { return _monsters; } }
+        public List<MonsterStats> Stats { get { return _stats; } }
+        public List<Item> Items {  get { return _items; } }
+        public List<MonsterItemTable> MonsterItemTables { get { return monsterItemTables; } }
     }
 
 
