@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MonsterClickerAPI;
@@ -9,6 +10,7 @@ using MonsterClickerAPI.Endpoints;
 using MonsterClickerAPI.Enumfolder;
 using MonsterClickerAPI.IRepo;
 using MonsterClickerAPI.Models;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -51,8 +53,13 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(
-    opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+builder.Services.AddDbContext<DataContext>(opt =>
+{
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnectionString"));
+    opt.LogTo(message => Debug.WriteLine(message));
+
+});
+
 
 builder.Services.AddScoped<ServiceToken, ServiceToken>();
 

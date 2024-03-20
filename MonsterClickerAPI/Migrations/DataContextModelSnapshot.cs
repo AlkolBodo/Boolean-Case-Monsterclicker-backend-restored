@@ -177,14 +177,6 @@ namespace MonsterClickerAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("item");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ItemName = "Bone",
-                            ItemSpriteUrl = "NONE"
-                        });
                 });
 
             modelBuilder.Entity("MonsterClickerAPI.Models.Monster", b =>
@@ -195,6 +187,11 @@ namespace MonsterClickerAPI.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("world_location");
 
                     b.Property<string>("MonsterName")
                         .IsRequired()
@@ -258,13 +255,17 @@ namespace MonsterClickerAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<float>("BaseHealth")
+                        .HasColumnType("real")
+                        .HasColumnName("basehealth");
+
+                    b.Property<float>("ExtraHealth")
+                        .HasColumnType("real")
+                        .HasColumnName("extra_health");
+
                     b.Property<int>("GoldDrop")
                         .HasColumnType("integer")
                         .HasColumnName("gold_drop");
-
-                    b.Property<float>("Health")
-                        .HasColumnType("real")
-                        .HasColumnName("health");
 
                     b.Property<int>("MonsterId")
                         .HasColumnType("integer")
