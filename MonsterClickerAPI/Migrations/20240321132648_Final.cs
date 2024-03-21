@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MonsterClickerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class guh2 : Migration
+    public partial class Final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,20 +68,6 @@ namespace MonsterClickerAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_monster", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "user",
-                columns: table => new
-                {
-                    id = table.Column<string>(type: "text", nullable: false),
-                    username = table.Column<string>(type: "text", nullable: false),
-                    password = table.Column<string>(type: "text", nullable: false),
-                    email = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_user", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,6 +132,75 @@ namespace MonsterClickerAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "player_stats",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<string>(type: "text", nullable: false),
+                    click_damage = table.Column<float>(type: "real", nullable: false),
+                    crit_chance = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_player_stats", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_player_stats_AspNetUsers_user_id",
+                        column: x => x.user_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_statistic",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<string>(type: "text", nullable: false),
+                    clicks = table.Column<int>(type: "integer", nullable: false),
+                    monsters_killed = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_user_statistic", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_user_statistic_AspNetUsers_user_id",
+                        column: x => x.user_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "player_inventory",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<string>(type: "text", nullable: false),
+                    item_id = table.Column<int>(type: "integer", nullable: false),
+                    amount = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_player_inventory", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_player_inventory_AspNetUsers_user_id",
+                        column: x => x.user_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_player_inventory_item_item_id",
+                        column: x => x.item_id,
+                        principalTable: "item",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "monster_item_table",
                 columns: table => new
                 {
@@ -196,84 +251,15 @@ namespace MonsterClickerAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "player_inventory",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<string>(type: "text", nullable: false),
-                    item_id = table.Column<int>(type: "integer", nullable: false),
-                    amount = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_player_inventory", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_player_inventory_item_item_id",
-                        column: x => x.item_id,
-                        principalTable: "item",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_player_inventory_user_user_id",
-                        column: x => x.user_id,
-                        principalTable: "user",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "player_stats",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<string>(type: "text", nullable: false),
-                    click_damage = table.Column<float>(type: "real", nullable: false),
-                    crit_chance = table.Column<float>(type: "real", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_player_stats", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_player_stats_user_user_id",
-                        column: x => x.user_id,
-                        principalTable: "user",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "user_statistic",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<string>(type: "text", nullable: false),
-                    clicks = table.Column<int>(type: "integer", nullable: false),
-                    monsters_killed = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_user_statistic", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_user_statistic_user_user_id",
-                        column: x => x.user_id,
-                        principalTable: "user",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "item",
                 columns: new[] { "id", "item_name", "item_sprite_url", "value" },
                 values: new object[,]
                 {
-                    { 1, "Bone", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Disgusting%20Fork", 11f },
-                    { 2, "Blob", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Ancient%20Sweet%20Bag", 20f },
-                    { 3, "Spirit energy", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Fossilized%20Banana", 15f },
-                    { 4, "Scrap", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Grand%20Old%20Bag", 9f }
+                    { 1, "Bone", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Disgusting%20Fork", 16f },
+                    { 2, "Blob", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Ancient%20Sweet%20Bag", 16f },
+                    { 3, "Spirit energy", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Fossilized%20Banana", 10f },
+                    { 4, "Scrap", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Grand%20Old%20Bag", 1f }
                 });
 
             migrationBuilder.InsertData(
@@ -318,51 +304,48 @@ namespace MonsterClickerAPI.Migrations
                 columns: new[] { "id", "drop_rate", "item_id", "max_drop", "min_drop", "monster_id" },
                 values: new object[,]
                 {
-                    { 1, 50f, 2, 3, 1, 1 },
-                    { 2, 79f, 1, 6, 2, 1 },
-                    { 3, 22f, 4, 5, 3, 2 },
-                    { 4, 75f, 4, 3, 1, 3 },
-                    { 5, 40f, 3, 3, 1, 4 },
-                    { 6, 69f, 2, 5, 2, 5 },
-                    { 7, 59f, 1, 6, 4, 6 },
-                    { 8, 40f, 1, 7, 3, 7 },
-                    { 9, 64f, 2, 2, 1, 7 },
-                    { 10, 52f, 3, 6, 2, 8 },
-                    { 11, 71f, 2, 5, 3, 9 },
-                    { 12, 24f, 3, 5, 4, 10 },
-                    { 13, 23f, 1, 5, 3, 10 },
-                    { 14, 21f, 3, 7, 3, 11 },
-                    { 15, 25f, 1, 2, 1, 11 },
-                    { 16, 62f, 1, 2, 1, 12 },
-                    { 17, 68f, 2, 3, 1, 12 },
-                    { 18, 54f, 1, 4, 1, 13 },
-                    { 19, 76f, 3, 6, 3, 14 },
-                    { 20, 20f, 4, 4, 2, 15 },
-                    { 21, 68f, 1, 3, 1, 15 },
-                    { 22, 74f, 3, 6, 4, 16 },
-                    { 23, 22f, 1, 5, 4, 16 },
-                    { 24, 78f, 1, 5, 4, 17 },
-                    { 25, 22f, 3, 5, 3, 17 },
-                    { 26, 74f, 3, 3, 2, 18 },
-                    { 27, 51f, 3, 5, 3, 19 },
-                    { 28, 24f, 4, 4, 3, 20 },
-                    { 29, 78f, 2, 5, 1, 21 },
-                    { 30, 38f, 3, 6, 2, 22 },
-                    { 31, 20f, 1, 7, 3, 22 },
-                    { 32, 27f, 2, 2, 1, 23 },
-                    { 33, 33f, 4, 3, 2, 23 },
-                    { 34, 41f, 1, 8, 4, 24 },
-                    { 35, 49f, 3, 3, 1, 25 },
-                    { 36, 47f, 2, 3, 2, 25 },
-                    { 37, 51f, 4, 7, 3, 26 },
-                    { 38, 75f, 2, 5, 2, 26 },
-                    { 39, 35f, 2, 5, 1, 27 },
-                    { 40, 42f, 4, 4, 3, 27 },
-                    { 41, 68f, 2, 7, 4, 28 },
-                    { 42, 26f, 3, 8, 4, 28 },
-                    { 43, 45f, 2, 3, 2, 29 },
-                    { 44, 38f, 1, 4, 1, 29 },
-                    { 45, 74f, 3, 5, 1, 30 }
+                    { 1, 22f, 1, 7, 3, 1 },
+                    { 2, 60f, 2, 6, 3, 2 },
+                    { 3, 39f, 1, 6, 4, 2 },
+                    { 4, 30f, 4, 6, 2, 3 },
+                    { 5, 55f, 2, 5, 4, 4 },
+                    { 6, 40f, 3, 7, 4, 5 },
+                    { 7, 78f, 2, 2, 1, 6 },
+                    { 8, 43f, 4, 3, 1, 7 },
+                    { 9, 72f, 3, 5, 2, 7 },
+                    { 10, 34f, 1, 2, 1, 8 },
+                    { 11, 38f, 1, 3, 2, 9 },
+                    { 12, 55f, 4, 6, 3, 9 },
+                    { 13, 29f, 3, 5, 2, 10 },
+                    { 14, 75f, 4, 4, 3, 11 },
+                    { 15, 47f, 3, 6, 2, 12 },
+                    { 16, 74f, 4, 3, 1, 13 },
+                    { 17, 76f, 1, 8, 4, 14 },
+                    { 18, 23f, 1, 5, 2, 15 },
+                    { 19, 44f, 4, 5, 4, 15 },
+                    { 20, 55f, 2, 4, 1, 16 },
+                    { 21, 33f, 3, 6, 4, 16 },
+                    { 22, 39f, 4, 7, 3, 17 },
+                    { 23, 36f, 2, 6, 2, 17 },
+                    { 24, 67f, 4, 4, 2, 18 },
+                    { 25, 33f, 4, 7, 3, 19 },
+                    { 26, 49f, 3, 3, 2, 20 },
+                    { 27, 43f, 4, 6, 3, 20 },
+                    { 28, 79f, 4, 7, 3, 21 },
+                    { 29, 39f, 3, 4, 3, 22 },
+                    { 30, 28f, 3, 3, 2, 23 },
+                    { 31, 21f, 2, 4, 3, 23 },
+                    { 32, 20f, 2, 6, 2, 24 },
+                    { 33, 20f, 4, 6, 2, 24 },
+                    { 34, 30f, 2, 7, 3, 25 },
+                    { 35, 33f, 3, 5, 3, 26 },
+                    { 36, 56f, 1, 5, 1, 27 },
+                    { 37, 53f, 3, 5, 3, 28 },
+                    { 38, 23f, 4, 5, 4, 28 },
+                    { 39, 60f, 4, 4, 1, 29 },
+                    { 40, 28f, 3, 8, 4, 29 },
+                    { 41, 45f, 4, 3, 1, 30 },
+                    { 42, 75f, 2, 4, 3, 30 }
                 });
 
             migrationBuilder.InsertData(
@@ -370,36 +353,36 @@ namespace MonsterClickerAPI.Migrations
                 columns: new[] { "id", "basehealth", "extra_health", "gold_drop", "monster_id" },
                 values: new object[,]
                 {
-                    { 1, 7f, 9f, 2, 1 },
-                    { 2, 7f, 8f, 3, 2 },
-                    { 3, 8f, 9f, 1, 3 },
+                    { 1, 8f, 5f, 1, 1 },
+                    { 2, 9f, 5f, 2, 2 },
+                    { 3, 5f, 8f, 3, 3 },
                     { 4, 9f, 6f, 1, 4 },
-                    { 5, 5f, 9f, 1, 5 },
-                    { 6, 5f, 7f, 1, 6 },
-                    { 7, 6f, 7f, 1, 7 },
-                    { 8, 5f, 6f, 4, 8 },
-                    { 9, 6f, 7f, 2, 9 },
-                    { 10, 6f, 8f, 1, 10 },
-                    { 11, 7f, 6f, 4, 11 },
-                    { 12, 7f, 6f, 2, 12 },
-                    { 13, 6f, 7f, 3, 13 },
-                    { 14, 5f, 6f, 3, 14 },
-                    { 15, 8f, 8f, 3, 15 },
-                    { 16, 8f, 7f, 1, 16 },
-                    { 17, 5f, 5f, 3, 17 },
-                    { 18, 9f, 5f, 2, 18 },
-                    { 19, 6f, 9f, 3, 19 },
-                    { 20, 7f, 8f, 1, 20 },
-                    { 21, 9f, 5f, 3, 21 },
-                    { 22, 7f, 5f, 4, 22 },
-                    { 23, 8f, 5f, 3, 23 },
-                    { 24, 6f, 7f, 2, 24 },
-                    { 25, 8f, 8f, 4, 25 },
-                    { 26, 9f, 7f, 3, 26 },
-                    { 27, 9f, 7f, 1, 27 },
-                    { 28, 7f, 9f, 4, 28 },
-                    { 29, 9f, 7f, 2, 29 },
-                    { 30, 9f, 5f, 2, 30 }
+                    { 5, 6f, 9f, 2, 5 },
+                    { 6, 7f, 9f, 3, 6 },
+                    { 7, 8f, 9f, 2, 7 },
+                    { 8, 6f, 9f, 2, 8 },
+                    { 9, 7f, 7f, 3, 9 },
+                    { 10, 7f, 5f, 2, 10 },
+                    { 11, 5f, 8f, 3, 11 },
+                    { 12, 8f, 7f, 2, 12 },
+                    { 13, 5f, 7f, 2, 13 },
+                    { 14, 9f, 6f, 1, 14 },
+                    { 15, 5f, 6f, 2, 15 },
+                    { 16, 7f, 5f, 1, 16 },
+                    { 17, 7f, 8f, 4, 17 },
+                    { 18, 9f, 6f, 2, 18 },
+                    { 19, 9f, 5f, 1, 19 },
+                    { 20, 5f, 5f, 1, 20 },
+                    { 21, 8f, 8f, 4, 21 },
+                    { 22, 5f, 9f, 3, 22 },
+                    { 23, 6f, 5f, 4, 23 },
+                    { 24, 5f, 6f, 2, 24 },
+                    { 25, 9f, 6f, 3, 25 },
+                    { 26, 7f, 8f, 4, 26 },
+                    { 27, 6f, 9f, 1, 27 },
+                    { 28, 8f, 6f, 1, 28 },
+                    { 29, 5f, 5f, 2, 29 },
+                    { 30, 8f, 5f, 2, 30 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -487,16 +470,13 @@ namespace MonsterClickerAPI.Migrations
                 name: "user_statistic");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "monster");
 
             migrationBuilder.DropTable(
                 name: "item");
 
             migrationBuilder.DropTable(
-                name: "user");
+                name: "AspNetUsers");
         }
     }
 }

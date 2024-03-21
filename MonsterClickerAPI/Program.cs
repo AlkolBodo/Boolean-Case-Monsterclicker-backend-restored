@@ -77,7 +77,6 @@ builder.Services.AddScoped<IRepository<Monster>, Repository<Monster>>();
 builder.Services.AddScoped<IRepository<Item>, Repository<Item>>();
 builder.Services.AddScoped<IRepository<MonsterItemTable>, Repository<MonsterItemTable>>();
 builder.Services.AddScoped<IRepository<MonsterStats>, Repository<MonsterStats>>();
-builder.Services.AddScoped<IRepository<User>, Repository<User>>();
 builder.Services.AddScoped<IRepository<UserStats>, Repository<UserStats>>();
 builder.Services.AddScoped<IRepository<PlayerStats>, Repository<PlayerStats>>();
 builder.Services.AddScoped<IRepository<PlayerInventory>, Repository<PlayerInventory>>();

@@ -36,8 +36,6 @@ namespace MonsterClickerAPI.Data
             builder.Entity<MonsterItemTable>().Navigation(x => x.Monster).AutoInclude();
             builder.Entity<MonsterItemTable>().Navigation(x => x.Item).AutoInclude();
 
-
-            //builder.Entity<Item>().HasData(seed.Items);
         }
 
         public DbSet<Item> Items { get; set; }
@@ -46,7 +44,7 @@ namespace MonsterClickerAPI.Data
         public DbSet<MonsterStats> MonsterStats { get; set; }
         public DbSet<PlayerInventory> PlayerInventories { get; set; }
         public DbSet<PlayerStats> PlayerStats { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<UserStats> UserStats { get; set; }
     }
 }

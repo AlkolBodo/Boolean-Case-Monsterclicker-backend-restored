@@ -40,17 +40,17 @@ namespace MonsterClickerAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var User = new AppUser { UserName = request.Username, Email = request.Email, Role = request.Role, Id = Guid.NewGuid().ToString()};
+            var user = new AppUser { UserName = request.Username, Email = request.Email, Role = request.Role, Id = Guid.NewGuid().ToString()};
 
             var result = await _userManager.CreateAsync(
-                User,
+                user,
                 request.Password!
             );
 
             if (result.Succeeded)
             {
                 request.Password = "";
-                var accessToken = _serviceToken.CreateToken(User);
+                var accessToken = _serviceToken.CreateToken(user);
 
                 // Include the access token in the response
                 var response = new
@@ -59,14 +59,14 @@ namespace MonsterClickerAPI.Controllers
                     Role = request.Role,
                     AccessToken = accessToken,
                     ///Use this for frontend
-                    Id = User.Id
+                    Id = user.Id
                 };
 
                 await userStatsRepository.Create(new UserStats()
-                    { Clicks = 0, MonstersKilled = 0, UserId = User.Id, AppUser = User });
+                    { Clicks = 0, MonstersKilled = 0, UserId = user.Id, AppUser = user });
 
                 await playerStatsRepository.Create(new PlayerStats()
-                    { ClickDamage = 0, CritChance = 0, UserId = User.Id, AppUser = User });
+                    { ClickDamage = 0, CritChance = 0, UserId = user.Id, AppUser = user });
 
 
                 return CreatedAtAction(nameof(Register), response); ;
