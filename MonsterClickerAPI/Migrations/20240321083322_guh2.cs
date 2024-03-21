@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MonsterClickerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class guh : Migration
+    public partial class guh2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -74,8 +74,7 @@ namespace MonsterClickerAPI.Migrations
                 name: "user",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<string>(type: "text", nullable: false),
                     username = table.Column<string>(type: "text", nullable: false),
                     password = table.Column<string>(type: "text", nullable: false),
                     email = table.Column<string>(type: "text", nullable: false)
@@ -203,7 +202,7 @@ namespace MonsterClickerAPI.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<string>(type: "text", nullable: false),
                     item_id = table.Column<int>(type: "integer", nullable: false),
                     amount = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -230,7 +229,7 @@ namespace MonsterClickerAPI.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<string>(type: "text", nullable: false),
                     click_damage = table.Column<float>(type: "real", nullable: false),
                     crit_chance = table.Column<float>(type: "real", nullable: false)
                 },
@@ -251,7 +250,7 @@ namespace MonsterClickerAPI.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<string>(type: "text", nullable: false),
                     clicks = table.Column<int>(type: "integer", nullable: false),
                     monsters_killed = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -271,10 +270,10 @@ namespace MonsterClickerAPI.Migrations
                 columns: new[] { "id", "item_name", "item_sprite_url", "value" },
                 values: new object[,]
                 {
-                    { 1, "Bone", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Disgusting%20Fork", 4f },
-                    { 2, "Blob", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Ancient%20Sweet%20Bag", 5f },
-                    { 3, "Spirit energy", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Fossilized%20Banana", 9f },
-                    { 4, "Scrap", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Grand%20Old%20Bag", 14f }
+                    { 1, "Bone", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Broken%20Disgusting%20Fork", 11f },
+                    { 2, "Blob", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Ancient%20Sweet%20Bag", 20f },
+                    { 3, "Spirit energy", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Fossilized%20Banana", 15f },
+                    { 4, "Scrap", "https://raw.githubusercontent.com/AlkolBodo/Boolean-Case-Monsterclicker-backend-restored/main/monsters/Sprites/Grand%20Old%20Bag", 9f }
                 });
 
             migrationBuilder.InsertData(
@@ -319,53 +318,51 @@ namespace MonsterClickerAPI.Migrations
                 columns: new[] { "id", "drop_rate", "item_id", "max_drop", "min_drop", "monster_id" },
                 values: new object[,]
                 {
-                    { 1, 43f, 3, 5, 4, 1 },
-                    { 2, 35f, 4, 2, 1, 2 },
-                    { 3, 71f, 1, 7, 3, 2 },
-                    { 4, 23f, 3, 5, 3, 3 },
-                    { 5, 60f, 4, 3, 2, 3 },
-                    { 6, 43f, 2, 4, 1, 4 },
-                    { 7, 70f, 3, 4, 3, 4 },
-                    { 8, 63f, 1, 5, 3, 5 },
-                    { 9, 35f, 3, 8, 4, 5 },
-                    { 10, 48f, 2, 6, 3, 6 },
-                    { 11, 47f, 3, 4, 2, 7 },
-                    { 12, 67f, 1, 5, 4, 8 },
-                    { 13, 72f, 4, 6, 3, 8 },
-                    { 14, 66f, 4, 7, 4, 9 },
-                    { 15, 75f, 4, 4, 3, 10 },
-                    { 16, 55f, 3, 6, 2, 10 },
-                    { 17, 20f, 4, 8, 4, 11 },
-                    { 18, 49f, 4, 5, 3, 12 },
-                    { 19, 69f, 3, 6, 2, 12 },
-                    { 20, 56f, 1, 3, 2, 13 },
-                    { 21, 56f, 3, 8, 4, 13 },
-                    { 22, 26f, 3, 4, 3, 14 },
-                    { 23, 67f, 4, 5, 2, 14 },
-                    { 24, 64f, 2, 4, 1, 15 },
-                    { 25, 43f, 1, 6, 4, 15 },
-                    { 26, 62f, 2, 4, 1, 16 },
-                    { 27, 42f, 3, 4, 2, 17 },
-                    { 28, 44f, 2, 3, 1, 18 },
-                    { 29, 37f, 2, 2, 1, 19 },
-                    { 30, 70f, 3, 4, 2, 19 },
-                    { 31, 51f, 4, 5, 4, 20 },
-                    { 32, 60f, 4, 7, 4, 21 },
-                    { 33, 32f, 2, 6, 4, 21 },
-                    { 34, 34f, 1, 5, 4, 22 },
-                    { 35, 73f, 2, 6, 2, 22 },
-                    { 36, 23f, 1, 4, 2, 23 },
-                    { 37, 54f, 3, 7, 3, 23 },
-                    { 38, 20f, 2, 8, 4, 24 },
-                    { 39, 70f, 1, 4, 3, 25 },
-                    { 40, 32f, 2, 5, 3, 25 },
-                    { 41, 45f, 4, 8, 4, 26 },
-                    { 42, 76f, 1, 6, 3, 26 },
-                    { 43, 66f, 4, 4, 1, 27 },
-                    { 44, 34f, 3, 7, 4, 28 },
-                    { 45, 65f, 3, 5, 2, 29 },
-                    { 46, 44f, 1, 6, 2, 29 },
-                    { 47, 20f, 1, 4, 2, 30 }
+                    { 1, 50f, 2, 3, 1, 1 },
+                    { 2, 79f, 1, 6, 2, 1 },
+                    { 3, 22f, 4, 5, 3, 2 },
+                    { 4, 75f, 4, 3, 1, 3 },
+                    { 5, 40f, 3, 3, 1, 4 },
+                    { 6, 69f, 2, 5, 2, 5 },
+                    { 7, 59f, 1, 6, 4, 6 },
+                    { 8, 40f, 1, 7, 3, 7 },
+                    { 9, 64f, 2, 2, 1, 7 },
+                    { 10, 52f, 3, 6, 2, 8 },
+                    { 11, 71f, 2, 5, 3, 9 },
+                    { 12, 24f, 3, 5, 4, 10 },
+                    { 13, 23f, 1, 5, 3, 10 },
+                    { 14, 21f, 3, 7, 3, 11 },
+                    { 15, 25f, 1, 2, 1, 11 },
+                    { 16, 62f, 1, 2, 1, 12 },
+                    { 17, 68f, 2, 3, 1, 12 },
+                    { 18, 54f, 1, 4, 1, 13 },
+                    { 19, 76f, 3, 6, 3, 14 },
+                    { 20, 20f, 4, 4, 2, 15 },
+                    { 21, 68f, 1, 3, 1, 15 },
+                    { 22, 74f, 3, 6, 4, 16 },
+                    { 23, 22f, 1, 5, 4, 16 },
+                    { 24, 78f, 1, 5, 4, 17 },
+                    { 25, 22f, 3, 5, 3, 17 },
+                    { 26, 74f, 3, 3, 2, 18 },
+                    { 27, 51f, 3, 5, 3, 19 },
+                    { 28, 24f, 4, 4, 3, 20 },
+                    { 29, 78f, 2, 5, 1, 21 },
+                    { 30, 38f, 3, 6, 2, 22 },
+                    { 31, 20f, 1, 7, 3, 22 },
+                    { 32, 27f, 2, 2, 1, 23 },
+                    { 33, 33f, 4, 3, 2, 23 },
+                    { 34, 41f, 1, 8, 4, 24 },
+                    { 35, 49f, 3, 3, 1, 25 },
+                    { 36, 47f, 2, 3, 2, 25 },
+                    { 37, 51f, 4, 7, 3, 26 },
+                    { 38, 75f, 2, 5, 2, 26 },
+                    { 39, 35f, 2, 5, 1, 27 },
+                    { 40, 42f, 4, 4, 3, 27 },
+                    { 41, 68f, 2, 7, 4, 28 },
+                    { 42, 26f, 3, 8, 4, 28 },
+                    { 43, 45f, 2, 3, 2, 29 },
+                    { 44, 38f, 1, 4, 1, 29 },
+                    { 45, 74f, 3, 5, 1, 30 }
                 });
 
             migrationBuilder.InsertData(
@@ -373,36 +370,36 @@ namespace MonsterClickerAPI.Migrations
                 columns: new[] { "id", "basehealth", "extra_health", "gold_drop", "monster_id" },
                 values: new object[,]
                 {
-                    { 1, 10f, 9f, 1, 1 },
-                    { 2, 10f, 8f, 2, 2 },
-                    { 3, 10f, 8f, 4, 3 },
-                    { 4, 10f, 9f, 2, 4 },
-                    { 5, 10f, 8f, 3, 5 },
-                    { 6, 10f, 9f, 3, 6 },
-                    { 7, 10f, 8f, 4, 7 },
-                    { 8, 10f, 9f, 4, 8 },
-                    { 9, 10f, 5f, 4, 9 },
-                    { 10, 10f, 6f, 4, 10 },
-                    { 11, 10f, 7f, 4, 11 },
-                    { 12, 10f, 9f, 2, 12 },
-                    { 13, 10f, 9f, 2, 13 },
-                    { 14, 10f, 8f, 3, 14 },
-                    { 15, 10f, 8f, 1, 15 },
-                    { 16, 10f, 7f, 3, 16 },
-                    { 17, 10f, 9f, 1, 17 },
-                    { 18, 10f, 6f, 3, 18 },
-                    { 19, 10f, 6f, 4, 19 },
-                    { 20, 10f, 8f, 1, 20 },
-                    { 21, 10f, 6f, 1, 21 },
-                    { 22, 10f, 7f, 1, 22 },
-                    { 23, 10f, 9f, 2, 23 },
-                    { 24, 10f, 5f, 2, 24 },
-                    { 25, 10f, 7f, 4, 25 },
-                    { 26, 10f, 8f, 3, 26 },
-                    { 27, 10f, 5f, 1, 27 },
-                    { 28, 10f, 7f, 3, 28 },
-                    { 29, 10f, 6f, 2, 29 },
-                    { 30, 10f, 8f, 2, 30 }
+                    { 1, 7f, 9f, 2, 1 },
+                    { 2, 7f, 8f, 3, 2 },
+                    { 3, 8f, 9f, 1, 3 },
+                    { 4, 9f, 6f, 1, 4 },
+                    { 5, 5f, 9f, 1, 5 },
+                    { 6, 5f, 7f, 1, 6 },
+                    { 7, 6f, 7f, 1, 7 },
+                    { 8, 5f, 6f, 4, 8 },
+                    { 9, 6f, 7f, 2, 9 },
+                    { 10, 6f, 8f, 1, 10 },
+                    { 11, 7f, 6f, 4, 11 },
+                    { 12, 7f, 6f, 2, 12 },
+                    { 13, 6f, 7f, 3, 13 },
+                    { 14, 5f, 6f, 3, 14 },
+                    { 15, 8f, 8f, 3, 15 },
+                    { 16, 8f, 7f, 1, 16 },
+                    { 17, 5f, 5f, 3, 17 },
+                    { 18, 9f, 5f, 2, 18 },
+                    { 19, 6f, 9f, 3, 19 },
+                    { 20, 7f, 8f, 1, 20 },
+                    { 21, 9f, 5f, 3, 21 },
+                    { 22, 7f, 5f, 4, 22 },
+                    { 23, 8f, 5f, 3, 23 },
+                    { 24, 6f, 7f, 2, 24 },
+                    { 25, 8f, 8f, 4, 25 },
+                    { 26, 9f, 7f, 3, 26 },
+                    { 27, 9f, 7f, 1, 27 },
+                    { 28, 7f, 9f, 4, 28 },
+                    { 29, 9f, 7f, 2, 29 },
+                    { 30, 9f, 5f, 2, 30 }
                 });
 
             migrationBuilder.CreateIndex(

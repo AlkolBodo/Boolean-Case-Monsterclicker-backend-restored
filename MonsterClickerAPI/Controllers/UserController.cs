@@ -8,6 +8,8 @@ using MonsterClickerAPI.Data;
 using MonsterClickerAPI.Data_transfer.Request;
 using MonsterClickerAPI.Data_transfer.Response;
 using MonsterClickerAPI.Enumfolder;
+using MonsterClickerAPI.IRepo;
+using MonsterClickerAPI.Models;
 
 namespace MonsterClickerAPI.Controllers
 {
@@ -31,13 +33,14 @@ namespace MonsterClickerAPI.Controllers
         [HttpPost]
         [Route("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Register(RegistrationRequest request)
+        public async Task<IActionResult> Register(RegistrationRequest request, IRepository<UserStats> userStatsRepository,
+            IRepository<PlayerStats> playerStatsRepository)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var User = new AppUser { UserName = request.Username, Email = request.Email, Role = request.Role};
+            var User = new AppUser { UserName = request.Username, Email = request.Email, Role = request.Role, Id = Guid.NewGuid().ToString()};
 
             var result = await _userManager.CreateAsync(
                 User,
@@ -58,6 +61,13 @@ namespace MonsterClickerAPI.Controllers
                     ///Use this for frontend
                     Id = User.Id
                 };
+
+                //await userStatsRepository.Create(new UserStats()
+                //    { Clicks = 0, MonstersKilled = 0, UserId = User.Id, AppUser = User});
+
+                await playerStatsRepository.Create(new PlayerStats()
+                { ClickDamage = 0, CritChance = 0, UserId = User.Id, AppUser = User });
+
 
                 return CreatedAtAction(nameof(Register), response);
             }
@@ -109,6 +119,8 @@ namespace MonsterClickerAPI.Controllers
                 Username = userInDb.UserName,
                 Email = userInDb.Email,
                 Token = accessToken,
+                Id = userInDb.Id
+                
             });
         }
     }

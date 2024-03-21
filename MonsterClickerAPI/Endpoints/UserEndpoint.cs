@@ -4,6 +4,7 @@ using MonsterClickerAPI.IRepo;
 using MonsterClickerAPI.Models;
 using MonsterClickerAPI.Payload;
 using System.Collections.Generic;
+using MonsterClickerAPI.Enumfolder;
 
 namespace MonsterClickerAPI.Endpoints
 {
@@ -12,19 +13,18 @@ namespace MonsterClickerAPI.Endpoints
         public static void ConfigureUserEndpoint(this WebApplication webApp)
         {
             var users = webApp.MapGroup("users");
-            users.MapGet("/all", GetUsers);
-            users.MapGet("/{id}", GetUserById);
-            users.MapPost("/", MakeUser);
+            //users.MapGet("/all", GetUsers);
+            //users.MapGet("/{id}", GetUserById);
+            //users.MapPost("/", MakeUser);
             //TODO Delete user eventually if there is time
-            //TODO New user adds entries to stat tables
 
             users.MapGet("/all/PlayerStats", GetPlayerStats);
-            users.MapGet("/{id}/PlayerStats", GetPlayerStatsById);
-            users.MapPut("/{id}/PlayerStats", EditPlayerStatsById);
+            users.MapGet("/{id}/PlayerStats", GetPlayerStatsByUserId);
+            users.MapPut("/{id}/PlayerStats", EditPlayerStatsByUserId);
 
             users.MapGet("/all/UserStats", GetUserStats);
-            users.MapGet("/{id}/UserStats", GetUserStatsById);
-            users.MapPut("/{id}/UserStats", EditUserStatsById);
+            users.MapGet("/{id}/UserStats", GetUserStatsByUserId);
+            users.MapPut("/{id}/UserStats", EditUserStatsByUserId);
 
             users.MapPost("/{id}/PlayerInventory", AddItemToPlayerInventory);
             users.MapGet("/{id}/PlayerInventory", GetPlayerInventory);
@@ -33,85 +33,88 @@ namespace MonsterClickerAPI.Endpoints
 
         }
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> GetUsers(IRepository<User> userRepository)
-        {
-            var userResult = await userRepository.GetAll();
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public static async Task<IResult> GetUsers(IRepository<User> userRepository)
+        //{
+        //    var userResult = await userRepository.GetAll();
 
-            List<UserDTO> userDTOs = new List<UserDTO>();
+        //    List<UserDTO> userDTOs = new List<UserDTO>();
 
-            foreach (var user in userResult)
-            {
-                userDTOs.Add(new UserDTO()
-                {
-                    Email = user.Email,
-                    Password = user.Password,
-                    Username = user.Username
-                });
-            }
+        //    foreach (var user in userResult)
+        //    {
+        //        userDTOs.Add(new UserDTO()
+        //        {
+        //            Id = user.Id,
+        //            Email = user.Email,
+        //            Password = user.Password,
+        //            Username = user.Username
+        //        });
+        //    }
 
 
-            Payload<IEnumerable<UserDTO>> payload = new Payload<IEnumerable<UserDTO>>();
-            payload.data = userDTOs;
-            return TypedResults.Ok(payload);
-        }
+        //    Payload<IEnumerable<UserDTO>> payload = new Payload<IEnumerable<UserDTO>>();
+        //    payload.data = userDTOs;
+        //    return TypedResults.Ok(payload);
+        //}
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> MakeUser(
-            IRepository<User> userRepository,
-            IRepository<UserStats> userStatsRepository,
-            IRepository<PlayerStats> playerStatsRepository,
-            UserDTO newUser)
-        {
-            var result = await userRepository.Create(new User()
-            {
-                Email = newUser.Email,
-                Password = newUser.Password,
-                Username = newUser.Username,
-            });
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public static async Task<IResult> MakeUser(
+        //    IRepository<User> userRepository,
+        //    IRepository<AppUser> userStatsRepository,
+        //    IRepository<PlayerStats> playerStatsRepository,
+        //    UserPOSTDTO newUser)
+        //{
+        //    var result = await userRepository.Create(new AppUser()
+        //    {
+        //        Id = Guid.NewGuid().ToString(),
+        //        Email = newUser.Email,
 
-            if (result == null)
-                return TypedResults.BadRequest();
+        //    });
 
-            await userStatsRepository.Create(new UserStats()
-                { Clicks = 0, MonstersKilled = 0, UserId = result.Id, User = result });
+        //    if (result == null)
+        //        return TypedResults.BadRequest();
 
-            await playerStatsRepository.Create(new PlayerStats()
-                { ClickDamage = 0, CritChance = 0, UserId = result.Id, User = result });
+        //    await userStatsRepository.Create(new UserStats()
+        //        { Clicks = 0, MonstersKilled = 0, UserId = result.Id, User = result });
 
-            Payload<UserDTO> payload = new Payload<UserDTO>();
-            payload.data = new UserDTO()
-            {
-                Email = result.Email,
-                Password = result.Password,
-                Username = result.Username
-            };
-            return TypedResults.Ok(payload);
-        }
+        //    await playerStatsRepository.Create(new PlayerStats()
+        //        { ClickDamage = 0, CritChance = 0, UserId = result.Id, User = result });
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> GetUserById(IRepository<User> userRepository, int id)
-        {
-            var userResult = await userRepository.GetById(id);
+        //    Payload<UserDTO> payload = new Payload<UserDTO>();
+        //    payload.data = new UserDTO()
+        //    {
+        //        Id = result.Id,   
+        //        Email = result.Email,
+        //        Password = result.Password,
+        //        Username = result.Username
+        //    };
+        //    return TypedResults.Ok(payload);
+        //}
 
-            if (userResult != null)
-            {
-                UserDTO userDTO = new UserDTO()
-                {
-                    Email = userResult.Email,
-                    Password = userResult.Password,
-                    Username = userResult.Username
-                };
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public static async Task<IResult> GetUserById(IRepository<User> userRepository, string id)
+        //{
+        //    var userResult = await userRepository.GetById(id);
 
-                Payload<UserDTO> payload = new Payload<UserDTO>();
-                payload.data = userDTO;
-                return TypedResults.Ok(payload);
-            }
-            else
-            {
-                return TypedResults.NotFound();
-            }
-        }
+        //    if (userResult != null)
+        //    {
+        //        UserDTO userDTO = new UserDTO()
+        //        {
+        //            Id = userResult.Id,
+        //            Email = userResult.Email,
+        //            Password = userResult.Password,
+        //            Username = userResult.Username
+        //        };
+
+        //        Payload<UserDTO> payload = new Payload<UserDTO>();
+        //        payload.data = userDTO;
+        //        return TypedResults.Ok(payload);
+        //    }
+        //    else
+        //    {
+        //        return TypedResults.NotFound();
+        //    }
+        //}
 
 
 
@@ -136,11 +139,12 @@ namespace MonsterClickerAPI.Endpoints
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> GetPlayerStatsById(IRepository<PlayerStats> playerStatsRepository, int id)
+        public static async Task<IResult> GetPlayerStatsByUserId(IRepository<PlayerStats> playerStatsRepository, string id)
         {
-            var results = await playerStatsRepository.GetById(id);
+            var allStats = await playerStatsRepository.GetAll();
+            var results = allStats.FirstOrDefault(x => x.UserId == id);
 
-            if (results == null) return TypedResults.NotFound("Invalid user Id");
+            if (results == default) return TypedResults.NotFound("Invalid user Id");
 
             Payload<PlayerStatsDTO> payload = new Payload<PlayerStatsDTO>();
             payload.data = new PlayerStatsDTO()
@@ -153,11 +157,12 @@ namespace MonsterClickerAPI.Endpoints
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> EditPlayerStatsById(IRepository<PlayerStats> playerStatsRepository, PlayerStatsDTO newStats, int id)
+        public static async Task<IResult> EditPlayerStatsByUserId(IRepository<PlayerStats> playerStatsRepository, PlayerStatsDTO newStats, string id)
         {
-            var stat = await playerStatsRepository.GetById(id);
+            var allStats = await playerStatsRepository.GetAll();
+            var stat = allStats.FirstOrDefault(x => x.UserId == id);
 
-            if (stat == null) return TypedResults.NotFound("Invalid user id");
+            if (stat == default) return TypedResults.NotFound("Invalid user id");
 
             stat.ClickDamage = newStats.ClickDamage;
             stat.CritChance = newStats.CritChance;
@@ -198,11 +203,12 @@ namespace MonsterClickerAPI.Endpoints
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> GetUserStatsById(IRepository<UserStats> userStatsRepository, int id)
+        public static async Task<IResult> GetUserStatsByUserId(IRepository<UserStats> userStatsRepository, string id)
         {
-            var results = await userStatsRepository.GetById(id);
+            var allStats = await userStatsRepository.GetAll();
+            var results = allStats.FirstOrDefault(x => x.UserId == id);
 
-            if (results == null) return TypedResults.NotFound("Invalid user id");
+            if (results == default) return TypedResults.NotFound("Invalid user id");
 
             Payload<UserStatsDTO> payload = new Payload<UserStatsDTO>();
             payload.data = new UserStatsDTO()
@@ -215,9 +221,10 @@ namespace MonsterClickerAPI.Endpoints
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> EditUserStatsById(IRepository<UserStats> userStatsRepository, UserStatsDTO newStats, int id)
+        public static async Task<IResult> EditUserStatsByUserId(IRepository<UserStats> userStatsRepository, UserStatsDTO newStats, string id)
         {
-            var stat = await userStatsRepository.GetById(id);
+            var allStats = await userStatsRepository.GetAll();
+            var stat = allStats.FirstOrDefault(x => x.UserId == id);
 
             if (stat == null) return TypedResults.NotFound("Invalid user Id");
 
@@ -244,7 +251,7 @@ namespace MonsterClickerAPI.Endpoints
             IRepository<Item> itemRepository,
             IRepository<User> userRepository,
 
-            int id, int itemId, int itemAmount)
+            string id, int itemId, int itemAmount)
         {
             var item = await itemRepository.GetById(itemId);
             var user = await userRepository.GetById(id);
@@ -260,7 +267,6 @@ namespace MonsterClickerAPI.Endpoints
                 Item = item,
                 ItemId = item.Id,
                 UserId = id,
-                User = user
             };
 
             var result = await playerInventoryRepository.Create(newItem);
@@ -284,7 +290,7 @@ namespace MonsterClickerAPI.Endpoints
             IRepository<PlayerInventory> playerInventoryRepository,
             IRepository<Item> itemRepository,
 
-            int id, int itemId, int newAmount)
+            string id, int itemId, int newAmount)
         {
             var getItem = await itemRepository.GetById(itemId);
 
@@ -317,7 +323,7 @@ namespace MonsterClickerAPI.Endpoints
             IRepository<PlayerInventory> playerInventoryRepository,
             IRepository<Item> itemRepository,
 
-            int id, int itemId)
+            string id, int itemId)
         {
             var getItem = await itemRepository.GetById(itemId);
 
@@ -351,7 +357,7 @@ namespace MonsterClickerAPI.Endpoints
         public static async Task<IResult> GetPlayerInventory(
             IRepository<PlayerInventory> playerInventoryRepository,
             IRepository<Item> itemRepository,
-            int id)
+            string id)
         {
             var inventories = await playerInventoryRepository.GetAll();
             var playerInventory = inventories.Where(x => x.UserId == id);

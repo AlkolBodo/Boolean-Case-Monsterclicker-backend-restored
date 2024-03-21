@@ -141,7 +141,7 @@ namespace MonsterClickerAPI.Data
                 MonsterStats stats = new MonsterStats();
                 stats.Id = i;
                 stats.MonsterId = i; 
-                stats.BaseHealth = baseHealth;
+                stats.BaseHealth = generateHealth();
                 stats.ExtraHealth = generateHealth();
                 stats.GoldDrop = generateGoldDrop();
                 _stats.Add(stats);

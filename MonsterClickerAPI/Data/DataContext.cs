@@ -26,11 +26,11 @@ namespace MonsterClickerAPI.Data
             builder.Entity<MonsterItemTable>().HasData(seeder.MonsterItemTables);
 
 
-            builder.Entity<UserStats>().Navigation(x => x.User).AutoInclude();
+            builder.Entity<UserStats>().Navigation(x => x.AppUser).AutoInclude();
 
-            builder.Entity<PlayerStats>().Navigation(x => x.User).AutoInclude();
+            builder.Entity<PlayerStats>().Navigation(x => x.AppUser).AutoInclude();
 
-            builder.Entity<PlayerInventory>().Navigation(x => x.User).AutoInclude();
+            builder.Entity<PlayerInventory>().Navigation(x => x.AppUser).AutoInclude();
             builder.Entity<PlayerInventory>().Navigation(x => x.Item).AutoInclude();
 
             builder.Entity<MonsterItemTable>().Navigation(x => x.Monster).AutoInclude();
@@ -46,7 +46,7 @@ namespace MonsterClickerAPI.Data
         public DbSet<MonsterStats> MonsterStats { get; set; }
         public DbSet<PlayerInventory> PlayerInventories { get; set; }
         public DbSet<PlayerStats> PlayerStats { get; set; }
-        public DbSet<User> UsersTemp { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<UserStats> UserStats { get; set; }
     }
 }
