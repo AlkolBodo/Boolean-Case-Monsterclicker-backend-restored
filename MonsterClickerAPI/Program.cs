@@ -81,6 +81,8 @@ builder.Services.AddScoped<IRepository<User>, Repository<User>>();
 builder.Services.AddScoped<IRepository<UserStats>, Repository<UserStats>>();
 builder.Services.AddScoped<IRepository<PlayerStats>, Repository<PlayerStats>>();
 builder.Services.AddScoped<IRepository<PlayerInventory>, Repository<PlayerInventory>>();
+builder.Services.AddScoped<IRepository<AppUser>, Repository<AppUser>>();
+
 
 
 

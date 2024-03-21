@@ -62,14 +62,14 @@ namespace MonsterClickerAPI.Controllers
                     Id = User.Id
                 };
 
-                //await userStatsRepository.Create(new UserStats()
-                //    { Clicks = 0, MonstersKilled = 0, UserId = User.Id, AppUser = User});
+                await userStatsRepository.Create(new UserStats()
+                    { Clicks = 0, MonstersKilled = 0, UserId = User.Id, AppUser = User });
 
                 await playerStatsRepository.Create(new PlayerStats()
-                { ClickDamage = 0, CritChance = 0, UserId = User.Id, AppUser = User });
+                    { ClickDamage = 0, CritChance = 0, UserId = User.Id, AppUser = User });
 
 
-                return CreatedAtAction(nameof(Register), response);
+                return CreatedAtAction(nameof(Register), response); ;
             }
 
             foreach (var error in result.Errors)
