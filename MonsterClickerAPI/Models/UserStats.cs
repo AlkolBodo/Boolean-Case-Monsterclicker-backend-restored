@@ -13,5 +13,6 @@ namespace MonsterClickerAPI.Models
         public AppUser AppUser { get; set; }
         [Column("clicks")] public int Clicks { get; set; }
         [Column("monsters_killed")] public int MonstersKilled { get; set; }
+        [Column("gold")] public int Gold { get; set; }
     }
 }

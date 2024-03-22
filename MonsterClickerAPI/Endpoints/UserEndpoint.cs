@@ -18,8 +18,6 @@ namespace MonsterClickerAPI.Endpoints
             //users.MapPost("/", MakeUser);
             //TODO Delete user eventually if there is time
 
-            users.MapGet("/initialize", startUser);
-
             users.MapGet("/all/PlayerStats", GetPlayerStats);
             users.MapGet("/{id}/PlayerStats", GetPlayerStatsByUserId);
             users.MapPut("/{id}/PlayerStats", EditPlayerStatsByUserId);
@@ -118,22 +116,6 @@ namespace MonsterClickerAPI.Endpoints
         //    }
         //}
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> startUser(IRepository<AppUser> userRepository, IRepository<PlayerStats> playerStatsRepository, IRepository<UserStats> userStatsRepository, string id)
-        {
-            var user = await userRepository.GetById(id);
-
-            if (user == null) return TypedResults.NotFound();
-
-            await userStatsRepository.Create(new UserStats()
-                { Clicks = 0, MonstersKilled = 0, UserId = user.Id, AppUser = user });
-
-            await playerStatsRepository.Create(new PlayerStats()
-                { ClickDamage = 0, CritChance = 0, UserId = user.Id, AppUser = user });
-
-            return TypedResults.Ok(user);
-        }
-
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         public static async Task<IResult> GetPlayerStats(IRepository<PlayerStats> playerStatsRepository)
@@ -210,6 +192,7 @@ namespace MonsterClickerAPI.Endpoints
                 userStatsDTOs.Add(new UserStatsDTO()
                 { Clicks = userStat.Clicks,
                     MonstersKilled = userStat.MonstersKilled,
+                    Gold = userStat.Gold
                 });
             }
 
@@ -231,7 +214,8 @@ namespace MonsterClickerAPI.Endpoints
             payload.data = new UserStatsDTO()
             {
                 Clicks = results.Clicks,
-                MonstersKilled = results.MonstersKilled
+                MonstersKilled = results.MonstersKilled,
+                Gold = results.Gold
             };
             return TypedResults.Ok(payload);
 
@@ -247,6 +231,7 @@ namespace MonsterClickerAPI.Endpoints
 
             stat.MonstersKilled = newStats.MonstersKilled;
             stat.Clicks = newStats.Clicks;
+            stat.Gold = newStats.Gold;
 
             var result = await userStatsRepository.Update(stat);
 
@@ -254,7 +239,8 @@ namespace MonsterClickerAPI.Endpoints
             payload.data = new UserStatsDTO()
             {
                 Clicks = result.Clicks,
-                MonstersKilled = result.MonstersKilled
+                MonstersKilled = result.MonstersKilled,
+                Gold = result.Gold
             };
             return TypedResults.Ok(payload);
 

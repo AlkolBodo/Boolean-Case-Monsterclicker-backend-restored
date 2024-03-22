@@ -7,6 +7,7 @@ namespace MonsterClickerAPI.DTOs
     { 
         public int Clicks { get; set; }
         public int MonstersKilled { get; set; }
+        public int Gold { get; set; }
     }
 }
 

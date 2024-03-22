@@ -63,7 +63,7 @@ namespace MonsterClickerAPI.Controllers
                 };
 
                 await userStatsRepository.Create(new UserStats()
-                    { Clicks = 0, MonstersKilled = 0, UserId = user.Id, AppUser = user });
+                    { Clicks = 0, MonstersKilled = 0, Gold = 0, UserId = user.Id, AppUser = user });
 
                 await playerStatsRepository.Create(new PlayerStats()
                     { ClickDamage = 0, CritChance = 0, UserId = user.Id, AppUser = user });
